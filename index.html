@@ -2287,6 +2287,74 @@ footer {
 #smm { opacity: 1 !important; transform: none !important; }
 
 </style>
+<style id="portfolio-boot-style">
+#boot-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  transition: opacity .6s ease;
+}
+
+#boot-overlay.boot-hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.boot-tag {
+  color: var(--text2);
+  font-size: 12px;
+  letter-spacing: .15em;
+}
+
+.boot-bar {
+  position: relative;
+  width: 280px;
+  max-width: 70vw;
+  height: 2px;
+  overflow: hidden;
+  background: var(--border);
+}
+
+.boot-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: var(--red);
+  transition: width .25s linear;
+}
+
+.boot-lines {
+  width: 280px;
+  max-width: 70vw;
+  min-height: 100px;
+  color: var(--text2);
+  font-size: 12px;
+  line-height: 1.7;
+  text-align: left;
+}
+
+.boot-lines .ok {
+  color: var(--red);
+}
+
+.boot-final {
+  margin-top: 6px;
+  color: var(--text);
+  font-size: 13px;
+  letter-spacing: .1em;
+  text-align: center;
+}
+</style>
 </head>
 <body>
 <!-- NAV -->
@@ -3607,6 +3675,71 @@ footer {
   document.querySelectorAll('.section').forEach(s => observer.observe(s));
   </script>
 
+  <script id="portfolio-boot-script">
+  (function () {
+    try {
+      var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function runBoot() {
+        if (reducedMotion || sessionStorage.getItem('bootPlayed2026Premium')) return;
+
+        var overlay = document.createElement('div');
+        overlay.id = 'boot-overlay';
+        overlay.setAttribute('role', 'status');
+        overlay.setAttribute('aria-live', 'polite');
+        overlay.innerHTML = '<div class="boot-tag">DOSSIER_OPEN // 2026</div>' +
+          '<div class="boot-bar"><div class="boot-bar-fill" id="bootFill"></div></div>' +
+          '<div class="boot-lines" id="bootLines"></div>' +
+          '<div class="boot-final" id="bootFinal" style="opacity:0"></div>';
+        document.body.appendChild(overlay);
+
+        var steps = ['Brand System', 'Audience Psychology', 'Content Strategy', 'Creative Engine', 'Analytics'];
+        var fill = overlay.querySelector('#bootFill');
+        var lines = overlay.querySelector('#bootLines');
+        var index = 0;
+
+        function nextStep() {
+          if (index < steps.length) {
+            var row = document.createElement('div');
+            row.textContent = '> Loading ' + steps[index] + '...';
+            lines.appendChild(row);
+            fill.style.width = (((index + 1) / steps.length) * 100) + '%';
+
+            setTimeout(function () {
+              row.innerHTML = '> Loading ' + steps[index] + '... <span class="ok">[OK]</span>';
+              index += 1;
+              setTimeout(nextStep, 180);
+            }, 220);
+            return;
+          }
+
+          var finalMessage = overlay.querySelector('#bootFinal');
+          finalMessage.textContent = 'SOCIAL MEDIA MARKETING & MANAGEMENT // SYSTEM ONLINE';
+          finalMessage.style.transition = 'opacity .5s ease';
+          finalMessage.style.opacity = '1';
+
+          setTimeout(function () {
+            overlay.classList.add('boot-hide');
+            setTimeout(function () {
+              overlay.remove();
+            }, 650);
+          }, 700);
+        }
+
+        sessionStorage.setItem('bootPlayed2026Premium', '1');
+        setTimeout(nextStep, 200);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runBoot);
+      } else {
+        runBoot();
+      }
+    } catch (error) {
+      // The loader must never block the portfolio if storage or animation APIs fail.
+    }
+  })();
+  </script>
   
 </body>
   </html>
