@@ -2404,7 +2404,7 @@ footer {
         color: var(--text3);
         text-transform: uppercase;
         opacity: 0;
-        animation: premiumFadeUp .7s .05s cubic-bezier(.22, 1, .36, 1) forwards;
+        animation: premiumFadeUp .7s .02s cubic-bezier(.22, 1, .36, 1) forwards;
       }
 
       .premium-hero-eyebrow::before {
@@ -2432,8 +2432,8 @@ footer {
         animation: premiumFadeUp .82s cubic-bezier(.22, 1, .36, 1) forwards;
       }
 
-      .premium-hero-title span:first-child { animation-delay: .12s; }
-      .premium-hero-title span:last-child { animation-delay: .2s; }
+      .premium-hero-title span:first-child { animation-delay: .04s; }
+      .premium-hero-title span:last-child { animation-delay: .1s; }
 
       .premium-hero-subtitle {
         margin-top: 24px;
@@ -2444,7 +2444,7 @@ footer {
         color: var(--red);
         opacity: 0;
         transform: translateY(14px);
-        animation: premiumFadeUp .72s .3s cubic-bezier(.22, 1, .36, 1) forwards;
+        animation: premiumFadeUp .72s .16s cubic-bezier(.22, 1, .36, 1) forwards;
       }
 
       .premium-hero-points {
@@ -2463,7 +2463,7 @@ footer {
         gap: 12px;
         font-size: 14px;
         line-height: 1.55;
-        color: rgba(240, 237, 232, .78);
+        color: rgba(240, 237, 232, .82);
         opacity: 0;
         transform: translateY(12px);
         animation: premiumFadeUp .65s cubic-bezier(.22, 1, .36, 1) forwards;
@@ -2479,9 +2479,9 @@ footer {
         box-shadow: 0 0 12px rgba(227, 6, 19, .3);
       }
 
-      .premium-hero-points li:nth-child(1) { animation-delay: .38s; }
-      .premium-hero-points li:nth-child(2) { animation-delay: .45s; }
-      .premium-hero-points li:nth-child(3) { animation-delay: .52s; }
+      .premium-hero-points li:nth-child(1) { animation-delay: .22s; }
+      .premium-hero-points li:nth-child(2) { animation-delay: .28s; }
+      .premium-hero-points li:nth-child(3) { animation-delay: .34s; }
 
       .premium-hero-actions {
         display: flex;
@@ -2490,7 +2490,7 @@ footer {
         margin-top: 38px;
         opacity: 0;
         transform: translateY(12px);
-        animation: premiumFadeUp .7s .62s cubic-bezier(.22, 1, .36, 1) forwards;
+        animation: premiumFadeUp .7s .4s cubic-bezier(.22, 1, .36, 1) forwards;
       }
 
       .premium-hero-button {
@@ -2546,7 +2546,7 @@ footer {
         box-shadow: 0 30px 80px rgba(0, 0, 0, .32), 0 0 90px rgba(227, 6, 19, .10);
         opacity: 0;
         transform: translateY(20px) scale(.985);
-        animation: premiumCardIn .9s .28s cubic-bezier(.22, 1, .36, 1) forwards;
+        animation: premiumCardIn .9s .18s cubic-bezier(.22, 1, .36, 1) forwards;
         transition: transform .35s cubic-bezier(.22, 1, .36, 1), border-color .35s ease, box-shadow .35s ease;
       }
 
@@ -2637,12 +2637,16 @@ footer {
       }
 
       @media (max-width: 620px) {
+        nav { padding-left: 16px !important; padding-right: 16px !important; }
+        nav .nav-cta-outline { display: none !important; }
+        nav > div:last-child { position: absolute !important; top: 12px !important; right: 16px !important; display: flex !important; width: 132px !important; gap: 0 !important; }
+        nav > div:last-child .nav-cta:not(.nav-cta-outline) { justify-content: center !important; width: 132px !important; padding: 10px 12px !important; font-size: 10px !important; white-space: nowrap !important; }
         #hero { min-height: auto; padding: 104px 20px 64px; }
         .premium-hero-eyebrow { margin-bottom: 22px; }
-        .premium-hero-title { font-size: clamp(58px, 18vw, 88px); letter-spacing: .008em; }
+        .premium-hero-title { font-size: clamp(54px, 16.5vw, 78px); letter-spacing: 0; }
         .premium-hero-subtitle { max-width: 320px; line-height: 1.45; }
-        .premium-hero-actions { align-items: stretch; }
-        .premium-hero-button { flex: 1 1 190px; }
+        .premium-hero-actions { display: grid; grid-template-columns: 1fr; align-items: stretch; }
+        .premium-hero-button { width: 100%; }
         .premium-visual-card { height: min(560px, 132vw); min-height: 480px; padding: 26px 20px 16px; }
         .premium-visual-logo { font-size: 50px; }
         .premium-visual-art { height: calc(100% - 72px); }
