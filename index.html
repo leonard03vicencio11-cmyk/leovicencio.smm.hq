@@ -2926,885 +2926,173 @@ footer {
 
 <style id="coded-growth-style">
   .coded-growth {
-    --cg-x: 0px;
-    --cg-y: 0px;
-    --cg-bg-x: 0px;
-    --cg-bg-y: 0px;
     position: relative;
-    margin-bottom: 64px;
-    padding: clamp(28px, 4vw, 60px);
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,.075);
-    border-radius: 28px;
-    background: #050505;
     isolation: isolate;
-    transition: background 1.2s ease, border-color 1.2s ease;
-  }
-
-  .coded-growth.is-active {
-    background: #030303;
-    border-color: rgba(255,255,255,.11);
+    margin: 96px 0 84px;
+    color: var(--text);
   }
 
   .coded-growth::before {
     content: "";
     position: absolute;
-    inset: 12% 8% 6% 32%;
-    z-index: -2;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(227,6,19,.12), rgba(227,6,19,.035) 38%, transparent 72%);
-    filter: blur(28px);
-    opacity: .3;
-    transform: translate3d(var(--cg-bg-x),var(--cg-bg-y),0) scale(.92);
-    transition: transform .9s cubic-bezier(.22,1,.36,1);
-  }
-
-  .coded-growth.is-active::before {
-    animation: codedGlowIn 1.4s .7s cubic-bezier(.22,1,.36,1) both,
-               codedGlowBreathe 8s 2.1s ease-in-out infinite;
-  }
-
-  .coded-growth__dust {
-    position: absolute;
-    inset: -7%;
+    inset: -120px -8% -90px;
     z-index: -1;
     pointer-events: none;
-    opacity: .22;
-    background-image:
-      radial-gradient(circle at center, rgba(255,255,255,.9) 0 1px, transparent 1.5px),
-      radial-gradient(circle at center, rgba(227,6,19,.7) 0 1px, transparent 1.5px);
-    background-position: 20px 30px, 90px 110px;
-    background-size: 178px 154px, 257px 223px;
-    transform: translate3d(var(--cg-bg-x),var(--cg-bg-y),0);
-    animation: codedDustDrift 28s linear infinite alternate;
-  }
-
-  .coded-growth__dust--far {
-    opacity: .12;
-    background-position: 130px 75px, 35px 170px;
-    background-size: 239px 211px, 313px 271px;
-    animation: codedDustCross 36s linear infinite alternate-reverse;
+    background: radial-gradient(circle at 62% 51%, rgba(227,6,19,.08), transparent 39%);
+    filter: blur(20px);
   }
 
   .coded-growth__header {
-    position: relative;
-    z-index: 5;
     max-width: 640px;
-    margin-bottom: clamp(28px,4vw,52px);
+    margin: 0 0 48px;
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(18px);
+    transition: opacity .7s ease, transform .7s ease;
   }
 
   .coded-growth.is-active .coded-growth__header {
-    animation: codedHeaderIn .72s cubic-bezier(.22,1,.36,1) both;
-  }
-
-  .coded-growth__kicker {
-    margin-bottom: 10px;
-    color: var(--red);
-    font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-  }
-
-  .coded-growth__title {
-    margin: 0 0 10px;
-    color: var(--text1);
-    font-family: var(--font-display);
-    font-size: clamp(38px,5.4vw,72px);
-    font-weight: 600;
-    letter-spacing: -.045em;
-    line-height: .98;
-  }
-
-  .coded-growth__caption {
-    margin: 0;
-    color: var(--text2);
-    font-size: clamp(13px,1.3vw,17px);
-  }
-
-  .coded-growth__canvas {
-    position: relative;
-    z-index: 3;
-    display: grid;
-    grid-template-columns: minmax(260px,.78fr) minmax(500px,1.22fr);
-    gap: clamp(24px,4vw,72px);
-    min-height: 700px;
-    padding: clamp(24px,3.8vw,54px);
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,.055);
-    border-radius: 24px;
-    background: rgba(0,0,0,.58);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.025), 0 28px 90px rgba(0,0,0,.22);
-    opacity: 0;
-    transform: translate3d(var(--cg-x),var(--cg-y),0) scale(.988);
-    transition: transform .9s cubic-bezier(.22,1,.36,1), border-color .3s ease;
-  }
-
-  .coded-growth.is-active .coded-growth__canvas {
-    animation: codedCanvasIn .82s .72s cubic-bezier(.22,1,.36,1) both;
-  }
-
-  .coded-growth__corner {
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    border-color: rgba(227,6,19,.88);
-    pointer-events: none;
-  }
-
-  .coded-growth__corner--tl { top: 14px; left: 14px; border-top: 2px solid; border-left: 2px solid; }
-  .coded-growth__corner--tr { top: 14px; right: 14px; border-top: 2px solid; border-right: 2px solid; }
-  .coded-growth__corner--bl { bottom: 14px; left: 14px; border-bottom: 2px solid; border-left: 2px solid; }
-  .coded-growth__corner--br { right: 14px; bottom: 14px; border-right: 2px solid; border-bottom: 2px solid; }
-
-  .coded-growth__brand {
-    display: flex;
-    min-width: 0;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 26px 0 22px;
-  }
-
-  .coded-growth__brand-title {
-    max-width: 470px;
-    color: #f5f3ef;
-    font-family: var(--font-display);
-    font-size: clamp(48px,6.3vw,92px);
-    font-weight: 650;
-    letter-spacing: -.055em;
-    line-height: .84;
-    text-transform: uppercase;
-  }
-
-  .coded-growth__brand-rule {
-    display: block;
-    width: 176px;
-    height: 5px;
-    margin-top: 26px;
-    background: var(--red);
-    transform: scaleX(0);
-    transform-origin: left;
-  }
-
-  .coded-growth.is-active .coded-growth__brand-rule {
-    animation: codedRuleIn .72s 1.2s cubic-bezier(.22,1,.36,1) both;
-  }
-
-  .coded-growth__sources {
-    display: grid;
-    grid-template-columns: repeat(2,minmax(0,1fr));
-    gap: 16px;
-    max-width: 430px;
-    margin-top: 48px;
-  }
-
-  .coded-source {
-    min-height: 210px;
-    padding: 22px 18px;
-    border: 1px solid rgba(255,255,255,.055);
-    border-radius: 18px;
-    background: rgba(255,255,255,.015);
-    text-align: center;
-    transition: transform .35s cubic-bezier(.22,1,.36,1), border-color .35s ease, background .35s ease;
-  }
-
-  .coded-source:hover {
-    transform: translateY(-4px);
-    border-color: rgba(227,6,19,.25);
-    background: rgba(227,6,19,.025);
-  }
-
-  .coded-source__symbol {
-    display: grid;
-    height: 92px;
-    margin-bottom: 14px;
-    place-items: center;
-  }
-
-  .coded-source strong {
-    display: block;
-    margin-bottom: 5px;
-    color: #f3f1ed;
-    font-family: var(--font-display);
-    font-size: 19px;
-    letter-spacing: .04em;
-    text-transform: uppercase;
-  }
-
-  .coded-source small {
-    display: block;
-    color: var(--text2);
-    font-family: var(--font-mono);
-    font-size: 10px;
-    line-height: 1.5;
-  }
-
-  .coded-sun {
-    position: relative;
-    width: 58px;
-    height: 58px;
-    border-radius: 50%;
-    background: var(--red);
-    box-shadow: 0 0 26px rgba(227,6,19,.17);
-  }
-
-  .coded-sun i {
-    --ray: 0deg;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 3px;
-    height: 13px;
-    border-radius: 8px;
-    background: var(--red);
-    transform: translate(-50%,-50%) rotate(var(--ray)) translateY(-42px);
-  }
-
-  .coded-cloud {
-    position: relative;
-    width: 86px;
-    height: 38px;
-    margin-top: 14px;
-    border-radius: 32px;
-    background: #f5f3ef;
-    box-shadow: -25px 4px 0 -7px #f5f3ef, 23px 6px 0 -9px #f5f3ef;
-  }
-
-  .coded-cloud::before,
-  .coded-cloud::after {
-    content: "";
-    position: absolute;
-    bottom: 12px;
-    border-radius: 50%;
-    background: #f5f3ef;
-  }
-
-  .coded-cloud::before { left: 14px; width: 42px; height: 42px; }
-  .coded-cloud::after { right: 7px; width: 52px; height: 52px; }
-
-  .coded-rain {
-    position: absolute;
-    right: 0;
-    bottom: -34px;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    gap: 14px;
-  }
-
-  .coded-rain i {
-    width: 8px;
-    height: 14px;
-    border-radius: 70% 30% 70% 30%;
-    background: #f5f3ef;
-    transform: rotate(45deg);
-  }
-
-  .coded-growth__system {
-    position: relative;
-    min-width: 0;
-    padding: 12px 0 0;
-  }
-
-  .coded-growth__energy-line {
-    position: absolute;
-    top: 58px;
-    bottom: 100px;
-    left: 51px;
-    z-index: 0;
-    width: 2px;
-    border-radius: 2px;
-    background: linear-gradient(to top, rgba(255,255,255,.88), rgba(255,255,255,.52));
-    box-shadow: 0 0 10px rgba(255,255,255,.12);
-    transform: scaleY(0);
-    transform-origin: bottom;
-  }
-
-  .coded-growth.is-active .coded-growth__energy-line {
-    animation: codedLineGrow 1.8s 1.3s cubic-bezier(.65,0,.35,1) both;
-  }
-
-  .coded-growth__energy-pulse {
-    position: absolute;
-    bottom: 104px;
-    left: 47px;
-    z-index: 3;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #fff;
-    box-shadow: 0 0 13px rgba(227,6,19,.85), 0 0 24px rgba(227,6,19,.4);
-    opacity: 0;
-  }
-
-  .coded-growth.is-active .coded-growth__energy-pulse {
-    animation: codedPulseRise 1.25s var(--pulse-delay) cubic-bezier(.65,0,.35,1) both;
-  }
-
-  .coded-stages {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column-reverse;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .coded-stage {
-    --stage-x: 0px;
-    --stage-y: 0px;
-    position: relative;
-    display: grid;
-    grid-template-columns: 104px minmax(0,1fr);
-    align-items: center;
-    min-height: 106px;
-    opacity: 0;
-    transform: translateY(12px);
-  }
-
-  .coded-growth.is-active .coded-stage {
-    animation: codedStageIn .66s var(--stage-delay) cubic-bezier(.22,1,.36,1) both;
-  }
-
-  .coded-stage__control {
-    position: relative;
-    z-index: 3;
-    display: grid;
-    width: 68px;
-    height: 68px;
-    padding: 0;
-    border: 0;
-    border-radius: 50%;
-    background: transparent;
-    color: inherit;
-    cursor: pointer;
-    place-items: center;
-    transform: translate3d(var(--stage-x),var(--stage-y),0) scale(1);
-    transition: transform .3s cubic-bezier(.22,1,.36,1), filter .3s ease;
-  }
-
-  .coded-stage__control::before {
-    content: "";
-    position: absolute;
-    inset: -7px;
-    border-radius: inherit;
-  }
-
-  .coded-stage__control:hover,
-  .coded-stage__control:focus-visible {
-    outline: none;
-    filter: drop-shadow(0 0 15px rgba(227,6,19,.38));
-    transform: translate3d(var(--stage-x),var(--stage-y),0) scale(1.06);
-  }
-
-  .coded-stage__control:focus-visible::before {
-    border: 1px solid rgba(255,255,255,.55);
-  }
-
-  .coded-stage__copy {
-    position: relative;
-    min-width: 0;
-    padding: 10px 12px 10px 42px;
-    border-radius: 14px;
-    transition: background .3s ease, transform .35s cubic-bezier(.22,1,.36,1);
-  }
-
-  .coded-stage__copy::before {
-    content: "";
-    position: absolute;
-    top: 30px;
-    left: 0;
-    width: 30px;
-    border-top: 1px dashed rgba(255,255,255,.5);
-  }
-
-  .coded-stage:has(.coded-stage__control:hover) .coded-stage__copy,
-  .coded-stage:has(.coded-stage__control:focus-visible) .coded-stage__copy {
-    background: rgba(255,255,255,.025);
-    transform: translateX(4px);
-  }
-
-  .coded-stage__heading {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-    margin-bottom: 4px;
-  }
-
-  .coded-stage__number {
-    color: var(--red);
-    font-family: var(--font-mono);
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: .05em;
-  }
-
-  .coded-stage__name {
-    color: #f5f3ef;
-    font-family: var(--font-display);
-    font-size: clamp(18px,2vw,26px);
-    font-weight: 650;
-    letter-spacing: -.02em;
-    text-transform: uppercase;
-  }
-
-  .coded-stage__description {
-    display: block;
-    max-width: 330px;
-    color: var(--text2);
-    font-family: var(--font-mono);
-    font-size: clamp(9px,.9vw,12px);
-    line-height: 1.48;
-    opacity: .62;
-    transform: translateY(5px);
-    transition: opacity .3s ease, transform .35s cubic-bezier(.22,1,.36,1);
-  }
-
-  .coded-stage:has(.coded-stage__control:hover) .coded-stage__description,
-  .coded-stage:has(.coded-stage__control:focus-visible) .coded-stage__description {
     opacity: 1;
     transform: translateY(0);
   }
 
-  .coded-target {
-    position: relative;
-    display: grid;
-    width: 56px;
-    height: 56px;
-    border: 1px solid rgba(227,6,19,.66);
-    border-radius: 50%;
-    place-items: center;
+  .coded-growth__kicker {
+    margin-bottom: 12px;
+    color: var(--red);
+    font: 700 9px/1.2 var(--font-mono);
+    letter-spacing: .2em;
+    text-transform: uppercase;
   }
 
-  .coded-target::before {
-    content: "";
-    width: 32px;
-    height: 32px;
-    border: 8px solid #f5a7ba;
-    border-radius: 50%;
-    box-sizing: border-box;
+  .coded-growth__title {
+    margin: 0;
+    color: var(--text);
+    font: 700 clamp(44px, 5.4vw, 78px)/.94 var(--font-display);
+    letter-spacing: -.045em;
   }
 
-  .coded-target::after {
-    content: "";
-    position: absolute;
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: #0b0b0b;
-  }
-
-  .coded-target--roots { width: 48px; height: 48px; }
-  .coded-target--roots::before { width: 28px; height: 28px; border-width: 7px; }
-  .coded-target--roots::after { width: 8px; height: 8px; background: var(--red); }
-
-  .coded-target--roots i,
-  .coded-target--roots b {
-    position: absolute;
-    bottom: -14px;
-    width: 1px;
-    height: 18px;
-    background: rgba(255,255,255,.55);
-    transform-origin: top;
-  }
-
-  .coded-target--roots i { left: 18px; transform: rotate(42deg); }
-  .coded-target--roots b { right: 18px; transform: rotate(-42deg); }
-
-  .coded-sales {
-    position: relative;
-    display: grid;
-    width: 66px;
-    height: 66px;
-    place-items: center;
-  }
-
-  .coded-sales i {
-    position: absolute;
-    inset: 0;
-    border: 1px solid rgba(227,6,19,.48);
-    border-radius: 50%;
-  }
-
-  .coded-sales i:nth-child(2) { inset: 8px; border-color: rgba(227,6,19,.66); }
-  .coded-sales b { width: 34px; height: 34px; border-radius: 50%; background: var(--red); box-shadow: 0 0 22px rgba(227,6,19,.25); }
-
-  .coded-growth.is-active .coded-sales i:first-child {
-    animation: codedRing 24s 5.7s linear infinite;
-  }
-
-  .coded-battery {
-    position: relative;
-    display: block;
-    width: 42px;
-    height: 66px;
-    overflow: visible;
-    border: 2px solid rgba(255,255,255,.8);
-    border-radius: 7px;
-    background: rgba(255,255,255,.025);
-  }
-
-  .coded-battery::before {
-    content: "";
-    position: absolute;
-    top: -9px;
-    left: 12px;
-    width: 14px;
-    height: 7px;
-    border-radius: 3px 3px 0 0;
-    background: rgba(255,255,255,.78);
-  }
-
-  .coded-battery__fill {
-    position: absolute;
-    inset: 4px;
-    border-radius: 3px;
-    background: var(--red);
-    transform: scaleY(0);
-    transform-origin: bottom;
-  }
-
-  .coded-growth.is-active .coded-battery__fill {
-    animation: codedBatteryFill .9s 2.3s cubic-bezier(.65,0,.35,1) both;
-  }
-
-  .coded-battery__bolt {
-    position: absolute;
-    top: 21px;
-    left: 13px;
-    z-index: 2;
-    width: 13px;
-    height: 22px;
-    background: #080808;
-    clip-path: polygon(56% 0,100% 0,67% 38%,100% 38%,30% 100%,43% 55%,12% 55%);
-  }
-
-  .coded-flower {
-    --flower-x: 0px;
-    --flower-y: 0px;
-    position: relative;
-    display: block;
-    width: 78px;
-    height: 78px;
-    transform: translate3d(var(--flower-x),var(--flower-y),0);
-  }
-
-  .coded-flower__petal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 34px;
-    height: 40px;
-    border-radius: 65% 65% 48% 48%;
-    background: linear-gradient(145deg,#ffd7e1,#f08ca6);
-    transform-origin: 50% 100%;
-  }
-
-  .coded-flower__petal--n { transform: translate(-50%,-96%); }
-  .coded-flower__petal--e { transform: translate(-4%,-50%) rotate(90deg); }
-  .coded-flower__petal--s { transform: translate(-50%,-4%) rotate(180deg); }
-  .coded-flower__petal--w { transform: translate(-96%,-50%) rotate(-90deg); }
-
-  .coded-flower__center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 3;
-    width: 30px;
-    height: 30px;
-    border: 9px solid var(--red);
-    border-radius: 50%;
-    background: #080808;
-    box-sizing: border-box;
-    transform: translate(-50%,-50%);
-  }
-
-  .coded-growth.is-active .coded-flower {
-    animation: codedFlowerBloom 1.2s 3.75s cubic-bezier(.22,1,.36,1) both,
-               codedFlowerBreathe 5.5s 4.95s ease-in-out infinite;
-  }
-
-  .coded-stage--seed {
-    min-height: 132px;
-  }
-
-  .coded-stage--seed .coded-stage__control {
-    width: 136px;
-    height: 92px;
-    margin-left: 26px;
-    border: 1px solid rgba(255,255,255,.17);
-    border-radius: 16px;
-    background: linear-gradient(110deg,rgba(255,255,255,.025),rgba(255,255,255,.08),rgba(255,255,255,.025));
-  }
-
-  .coded-roots-svg {
-    position: absolute;
-    top: -3px;
-    left: 50%;
-    width: 116px;
-    height: 75px;
-    overflow: visible;
-    color: rgba(255,255,255,.78);
-    transform: translateX(-50%);
-  }
-
-  .coded-roots-svg path {
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.35;
-    stroke-linecap: round;
-    stroke-dasharray: 130;
-    stroke-dashoffset: 130;
-  }
-
-  .coded-growth.is-active .coded-roots-svg path {
-    animation: codedRootsDraw .95s 1.72s cubic-bezier(.65,0,.35,1) both;
-  }
-
-  .coded-seed {
-    position: absolute;
-    bottom: 8px;
-    left: 50%;
-    width: 20px;
-    height: 34px;
-    border: 7px solid #f5f3ef;
-    border-radius: 58% 42% 60% 40%;
-    transform: translateX(-50%) rotate(38deg);
-  }
-
-  .coded-seed::after {
-    content: "";
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    width: 3px;
-    height: 11px;
-    border-radius: 3px;
-    background: #f5f3ef;
-  }
-
-  .coded-growth__soil {
-    margin: 4px 0 0 104px;
+  .coded-growth__caption {
+    margin: 18px 0 0;
     color: var(--text2);
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: .04em;
+    font: 400 15px/1.65 var(--font-body);
   }
 
-  .coded-growth__soil strong { color: var(--red); font-weight: 600; }
-
-  @keyframes codedHeaderIn { to { opacity:1; transform:translateY(0); } }
-  @keyframes codedCanvasIn { to { opacity:1; transform:translate3d(var(--cg-x),var(--cg-y),0) scale(1); } }
-  @keyframes codedGlowIn { to { opacity:.72; transform:translate3d(var(--cg-bg-x),var(--cg-bg-y),0) scale(1); } }
-  @keyframes codedGlowBreathe { 50% { opacity:.88; filter:blur(34px); } }
-  @keyframes codedRuleIn { to { transform:scaleX(1); } }
-  @keyframes codedLineGrow { to { transform:scaleY(1); } }
-  @keyframes codedStageIn { to { opacity:1; transform:translateY(0); } }
-  @keyframes codedBatteryFill { to { transform:scaleY(1); } }
-  @keyframes codedRootsDraw { to { stroke-dashoffset:0; } }
-  @keyframes codedFlowerBloom { from { opacity:0; scale:.72; rotate:-8deg; filter:brightness(.72); } to { opacity:1; scale:1; rotate:0deg; filter:brightness(1.08) drop-shadow(0 0 18px rgba(227,6,19,.32)); } }
-  @keyframes codedFlowerBreathe { 50% { scale:1.025; filter:brightness(1.14) drop-shadow(0 0 24px rgba(227,6,19,.4)); } }
-  @keyframes codedRing { to { transform:rotate(360deg); } }
-  @keyframes codedPulseRise { 0% { opacity:0; transform:translateY(0) scale(.7); } 18%,78% { opacity:1; } 100% { opacity:0; transform:translateY(-540px) scale(1); } }
-  @keyframes codedDustDrift { from { transform:translate3d(-12px,-9px,0); } to { transform:translate3d(15px,11px,0); } }
-  @keyframes codedDustCross { from { transform:translate3d(13px,-8px,0); } to { transform:translate3d(-16px,12px,0); } }
-
-  @media (max-width: 980px) {
-    .coded-growth__canvas { grid-template-columns: 1fr; min-height: 0; }
-    .coded-growth__brand { gap: 28px; }
-    .coded-growth__brand-title { max-width: 660px; font-size: clamp(50px,10vw,86px); }
-    .coded-growth__sources { margin-top: 12px; }
-    .coded-growth__system { max-width: 680px; width: 100%; margin: 0 auto; }
+  .growth-canvas-shell {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1672 / 941;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.075);
+    border-radius: 26px;
+    background: #050505;
+    box-shadow: 0 24px 80px rgba(0,0,0,.38), 0 0 55px rgba(227,6,19,.035);
+    opacity: 0;
+    transform: translateY(18px) scale(.992);
+    transition: opacity .8s .15s ease, transform .8s .15s ease, border-color .25s ease;
   }
 
-  @media (max-width: 620px) {
-    .coded-growth { padding: 24px 14px 30px; border-radius: 20px; }
-    .coded-growth__header { padding: 0 8px; }
-    .coded-growth__title { font-size: clamp(35px,10vw,48px); }
-    .coded-growth__canvas { padding: 26px 14px 30px; border-radius: 18px; transform:none; }
-    .coded-growth__brand-title { font-size: clamp(42px,13.5vw,64px); }
-    .coded-growth__brand-rule { width: 126px; height: 4px; margin-top: 18px; }
-    .coded-growth__sources { grid-template-columns: 1fr 1fr; gap: 8px; }
-    .coded-source { min-height: 170px; padding: 16px 10px; }
-    .coded-source__symbol { height: 76px; }
-    .coded-stage { grid-template-columns: 82px minmax(0,1fr); min-height: 94px; }
-    .coded-growth__energy-line { left: 40px; top: 52px; bottom: 96px; }
-    .coded-growth__energy-pulse { left: 36px; bottom: 100px; }
-    .coded-stage__control { width: 58px; height: 58px; }
-    .coded-stage__copy { padding-left: 26px; }
-    .coded-stage__copy::before { width: 18px; top: 27px; }
-    .coded-stage__number { font-size: 11px; }
-    .coded-stage__name { font-size: 18px; }
-    .coded-stage__description { font-size: 9px; }
-    .coded-flower { width: 66px; height: 66px; }
-    .coded-flower__petal { width: 29px; height: 34px; }
-    .coded-target { width: 50px; height: 50px; }
-    .coded-sales { width: 56px; height: 56px; }
-    .coded-stage--seed .coded-stage__control { width: 112px; height: 82px; margin-left: 12px; }
-    .coded-roots-svg { width: 96px; height: 65px; }
-    .coded-growth__soil { margin-left: 82px; font-size: 8px; }
+  .coded-growth.is-active .growth-canvas-shell {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .growth-canvas-shell:hover { border-color: rgba(255,255,255,.12); }
+
+  #growth-framework-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .growth-canvas-stage-control {
+    position: absolute;
+    z-index: 3;
+    width: 76px;
+    height: 76px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    transition: box-shadow .2s ease, background .2s ease;
+  }
+
+  .growth-canvas-stage-control:hover,
+  .growth-canvas-stage-control:focus-visible {
+    outline: none;
+    background: rgba(227,6,19,.025);
+    box-shadow: 0 0 0 2px rgba(227,6,19,.55), 0 0 28px rgba(227,6,19,.2);
+  }
+
+  .growth-canvas-stage-control[data-stage="sales"] { left:56.2%; top:9.6%; }
+  .growth-canvas-stage-control[data-stage="leads"] { left:56.2%; top:23.1%; }
+  .growth-canvas-stage-control[data-stage="flower"] { left:56.2%; top:38.3%; width:94px; height:94px; }
+  .growth-canvas-stage-control[data-stage="roots"] { left:56.2%; top:53.2%; }
+  .growth-canvas-stage-control[data-stage="battery"] { left:63.1%; top:65.4%; width:72px; height:100px; border-radius:18px; }
+  .growth-canvas-stage-control[data-stage="seed"] { left:56.2%; top:81.2%; width:112px; height:96px; border-radius:22px; }
+
+  .growth-canvas-sr {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0,0,0,0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+
+  @media (max-width: 720px) {
+    .coded-growth { margin: 72px 0 70px; }
+    .coded-growth__header { margin-bottom: 34px; }
+    .coded-growth__caption { font-size: 13px; }
+    .growth-canvas-shell { aspect-ratio: 720 / 1180; border-radius: 20px; }
+    .growth-canvas-stage-control { width: 62px; height: 62px; }
+    .growth-canvas-stage-control[data-stage="sales"] { left:25%; top:38.1%; }
+    .growth-canvas-stage-control[data-stage="leads"] { left:25%; top:47.5%; }
+    .growth-canvas-stage-control[data-stage="flower"] { left:25%; top:58.5%; width:78px; height:78px; }
+    .growth-canvas-stage-control[data-stage="roots"] { left:25%; top:69.1%; }
+    .growth-canvas-stage-control[data-stage="battery"] { left:25%; top:78.8%; width:60px; height:76px; }
+    .growth-canvas-stage-control[data-stage="seed"] { left:25%; top:89%; width:88px; height:74px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .coded-growth__dust,
-    .coded-growth__dust--far,
-    .coded-growth::before,
     .coded-growth__header,
-    .coded-growth__canvas,
-    .coded-growth__brand-rule,
-    .coded-growth__energy-line,
-    .coded-stage,
-    .coded-battery__fill,
-    .coded-roots-svg path,
-    .coded-flower,
-    .coded-sales i,
-    .coded-growth__energy-pulse {
-      animation: none !important;
+    .growth-canvas-shell {
+      opacity: 1 !important;
+      transform: none !important;
       transition: none !important;
     }
-    .coded-growth__header,
-    .coded-growth__canvas,
-    .coded-stage { opacity:1 !important; transform:none !important; }
-    .coded-growth__brand-rule { transform:scaleX(1) !important; }
-    .coded-growth__energy-line { transform:scaleY(1) !important; }
-    .coded-battery__fill { transform:scaleY(1) !important; }
-    .coded-roots-svg path { stroke-dashoffset:0 !important; }
-    .coded-growth__energy-pulse { display:none !important; }
   }
 </style>
 
 <!-- ── GROWTH FRAMEWORK INTRO ── -->
     <section class="coded-growth" id="growth-framework" aria-labelledby="growth-framework-title">
-      <span class="coded-growth__dust" aria-hidden="true"></span>
-      <span class="coded-growth__dust coded-growth__dust--far" aria-hidden="true"></span>
-
       <header class="coded-growth__header">
         <div class="coded-growth__kicker">// MY SMM PROCESS</div>
         <h3 class="coded-growth__title" id="growth-framework-title">My Growth Framework</h3>
         <p class="coded-growth__caption">The system I use to transform visibility into sales.</p>
       </header>
 
-      <div class="coded-growth__canvas" aria-label="The Growth Framework, coded from Seed to Sales">
-        <span class="coded-growth__corner coded-growth__corner--tl" aria-hidden="true"></span>
-        <span class="coded-growth__corner coded-growth__corner--tr" aria-hidden="true"></span>
-        <span class="coded-growth__corner coded-growth__corner--bl" aria-hidden="true"></span>
-        <span class="coded-growth__corner coded-growth__corner--br" aria-hidden="true"></span>
+      <div class="growth-canvas-shell" role="img" aria-label="The Growth Framework: Seed, AA Battery, Roots, Flower, Leads, and Sales">
+        <canvas id="growth-framework-canvas" aria-hidden="true"></canvas>
 
-        <div class="coded-growth__brand">
-          <div>
-            <div class="coded-growth__brand-title">The Growth<br>Framework</div>
-            <span class="coded-growth__brand-rule" aria-hidden="true"></span>
-          </div>
+        <button class="growth-canvas-stage-control" data-stage="seed" type="button" aria-label="01 Seed — The business begins with clarity"></button>
+        <button class="growth-canvas-stage-control" data-stage="battery" type="button" aria-label="02 AA Battery — Aesthetic and authenticity create the energy to move"></button>
+        <button class="growth-canvas-stage-control" data-stage="roots" type="button" aria-label="03 Roots — Visibility and awareness build a foundation that compounds"></button>
+        <button class="growth-canvas-stage-control" data-stage="flower" type="button" aria-label="04 Flower — Engagement turns attention into genuine connection"></button>
+        <button class="growth-canvas-stage-control" data-stage="leads" type="button" aria-label="05 Leads — Interest becomes conversations, signups, DMs, and forms"></button>
+        <button class="growth-canvas-stage-control" data-stage="sales" type="button" aria-label="06 Sales — The system converts sustained attention into revenue"></button>
 
-          <div class="coded-growth__sources" aria-label="The client brings the light; Leonard brings consistent nurture">
-            <div class="coded-source">
-              <div class="coded-source__symbol" aria-hidden="true">
-                <span class="coded-sun">
-                  <i style="--ray:0deg"></i><i style="--ray:45deg"></i><i style="--ray:90deg"></i><i style="--ray:135deg"></i>
-                  <i style="--ray:180deg"></i><i style="--ray:225deg"></i><i style="--ray:270deg"></i><i style="--ray:315deg"></i>
-                </span>
-              </div>
-              <strong>Sun</strong>
-              <small>You — the client<br>— their light</small>
-            </div>
-
-            <div class="coded-source">
-              <div class="coded-source__symbol" aria-hidden="true">
-                <span class="coded-cloud"><span class="coded-rain"><i></i><i></i><i></i></span></span>
-              </div>
-              <strong>Leonard V.</strong>
-              <small>Consistent<br>nurture</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="coded-growth__system">
-          <span class="coded-growth__energy-line" aria-hidden="true"></span>
-          <span class="coded-growth__energy-pulse" style="--pulse-delay:2.48s" aria-hidden="true"></span>
-          <span class="coded-growth__energy-pulse" style="--pulse-delay:3.36s" aria-hidden="true"></span>
-          <span class="coded-growth__energy-pulse" style="--pulse-delay:4.42s" aria-hidden="true"></span>
-
-          <ol class="coded-stages" aria-label="Growth stages from Seed to Sales">
-            <li class="coded-stage coded-stage--seed" style="--stage-delay:1.48s">
-              <button class="coded-stage__control" type="button" aria-label="01 Seed — The business begins with clarity">
-                <svg class="coded-roots-svg" viewBox="0 0 120 78" aria-hidden="true">
-                  <path d="M60 2 C60 18 60 26 60 38 C52 45 46 52 40 70" />
-                  <path d="M60 34 C45 42 31 49 15 60" />
-                  <path d="M47 44 C37 44 27 42 19 38" />
-                  <path d="M60 38 C70 45 77 55 82 72" />
-                  <path d="M65 42 C82 46 96 54 109 64" />
-                  <path d="M76 49 C87 47 98 45 110 43" />
-                  <path d="M48 46 C42 57 40 66 39 76" />
-                  <path d="M70 48 C68 58 67 67 67 77" />
-                </svg>
-                <span class="coded-seed" aria-hidden="true"></span>
-              </button>
-              <div class="coded-stage__copy">
-                <div class="coded-stage__heading"><span class="coded-stage__number">01</span><strong class="coded-stage__name">Seed</strong></div>
-                <span class="coded-stage__description">The business begins with clarity.</span>
-              </div>
-            </li>
-
-            <li class="coded-stage coded-stage--battery" style="--stage-delay:2.22s">
-              <button class="coded-stage__control" type="button" aria-label="02 AA Battery — Aesthetic and authenticity create the energy to move">
-                <span class="coded-battery" aria-hidden="true"><span class="coded-battery__fill"></span><span class="coded-battery__bolt"></span></span>
-              </button>
-              <div class="coded-stage__copy">
-                <div class="coded-stage__heading"><span class="coded-stage__number">02</span><strong class="coded-stage__name">AA Battery</strong></div>
-                <span class="coded-stage__description">Aesthetic + authenticity create the energy to move.</span>
-              </div>
-            </li>
-
-            <li class="coded-stage coded-stage--roots" style="--stage-delay:2.92s">
-              <button class="coded-stage__control" type="button" aria-label="03 Roots — Visibility and awareness build a foundation that compounds">
-                <span class="coded-target coded-target--roots" aria-hidden="true"><i></i><b></b></span>
-              </button>
-              <div class="coded-stage__copy">
-                <div class="coded-stage__heading"><span class="coded-stage__number">03</span><strong class="coded-stage__name">Roots</strong></div>
-                <span class="coded-stage__description">Visibility + awareness build a foundation that compounds.</span>
-              </div>
-            </li>
-
-            <li class="coded-stage coded-stage--flower" style="--stage-delay:3.72s">
-              <button class="coded-stage__control" type="button" aria-label="04 Flower — Engagement turns attention into genuine connection">
-                <span class="coded-flower" aria-hidden="true">
-                  <i class="coded-flower__petal coded-flower__petal--n"></i><i class="coded-flower__petal coded-flower__petal--e"></i>
-                  <i class="coded-flower__petal coded-flower__petal--s"></i><i class="coded-flower__petal coded-flower__petal--w"></i>
-                  <b class="coded-flower__center"></b>
-                </span>
-              </button>
-              <div class="coded-stage__copy">
-                <div class="coded-stage__heading"><span class="coded-stage__number">04</span><strong class="coded-stage__name">Flower</strong></div>
-                <span class="coded-stage__description">Engagement turns attention into genuine connection.</span>
-              </div>
-            </li>
-
-            <li class="coded-stage coded-stage--leads" style="--stage-delay:4.72s">
-              <button class="coded-stage__control" type="button" aria-label="05 Leads — Interest becomes conversations, signups, DMs, and forms">
-                <span class="coded-target" aria-hidden="true"></span>
-              </button>
-              <div class="coded-stage__copy">
-                <div class="coded-stage__heading"><span class="coded-stage__number">05</span><strong class="coded-stage__name">Leads</strong></div>
-                <span class="coded-stage__description">Email signups, DMs, forms, and qualified conversations.</span>
-              </div>
-            </li>
-
-            <li class="coded-stage coded-stage--sales" style="--stage-delay:5.42s">
-              <button class="coded-stage__control" type="button" aria-label="06 Sales — The system converts sustained attention into revenue">
-                <span class="coded-sales" aria-hidden="true"><i></i><i></i><b></b></span>
-              </button>
-              <div class="coded-stage__copy">
-                <div class="coded-stage__heading"><span class="coded-stage__number">06</span><strong class="coded-stage__name">Sales</strong></div>
-                <span class="coded-stage__description">Conversion — sustained attention becomes revenue.</span>
-              </div>
-            </li>
-          </ol>
-
-          <div class="coded-growth__soil"><strong>SOIL</strong> → IG, TikTok, FB, LinkedIn</div>
-        </div>
+        <ol class="growth-canvas-sr" aria-label="Growth stages from Seed to Sales">
+          <li><strong>01 Seed.</strong> The business begins with clarity.</li>
+          <li><strong>02 AA Battery.</strong> Aesthetic and authenticity create the energy to move.</li>
+          <li><strong>03 Roots.</strong> Visibility and awareness build a foundation that compounds.</li>
+          <li><strong>04 Flower.</strong> Engagement turns attention into genuine connection.</li>
+          <li><strong>05 Leads.</strong> Interest becomes conversations, signups, DMs, and forms.</li>
+          <li><strong>06 Sales.</strong> The system converts sustained attention into revenue.</li>
+        </ol>
       </div>
     </section>
 
@@ -4712,63 +4000,346 @@ footer {
   <script id="growth-motion-script">
   (function () {
     var section = document.querySelector('.coded-growth');
-    if (!section || !('IntersectionObserver' in window)) return;
+    var shell = section && section.querySelector('.growth-canvas-shell');
+    var canvas = document.getElementById('growth-framework-canvas');
+    if (!section || !shell || !canvas || !canvas.getContext) return;
 
-    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.intersectionRatio >= 0.16) section.classList.add('is-active');
-        else if (entry.intersectionRatio === 0) section.classList.remove('is-active');
+    var ctx = canvas.getContext('2d');
+    var DISPLAY = '"Space Grotesk", Arial, sans-serif';
+    var MONO = '"JetBrains Mono", monospace';
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var visible = false;
+    var active = false;
+    var startTime = 0;
+    var progress = reducedMotion ? 1 : 0;
+    var animationFrame = 0;
+    var hoveredStage = '';
+    var pinnedStage = '';
+    var mobile = false;
+    var W = 1672;
+    var H = 941;
+    var duration = 5600;
+    var dots = [];
+
+    function clamp(value, min, max) { return Math.max(min, Math.min(max, value)); }
+    function phase(value, start, end) { return clamp((value - start) / (end - start), 0, 1); }
+    function ease(value) { return 1 - Math.pow(1 - clamp(value, 0, 1), 3); }
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    function setFont(weight, size, family) {
+      ctx.font = weight + ' ' + size + 'px ' + family;
+    }
+
+    function roundRect(x, y, width, height, radius) {
+      var r = Math.min(radius, width / 2, height / 2);
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + width, y, x + width, y + height, r);
+      ctx.arcTo(x + width, y + height, x, y + height, r);
+      ctx.arcTo(x, y + height, x, y, r);
+      ctx.arcTo(x, y, x + width, y, r);
+      ctx.closePath();
+    }
+
+    function withNode(x, y, scale, alpha, draw) {
+      ctx.save();
+      ctx.globalAlpha *= alpha;
+      ctx.translate(x, y);
+      ctx.scale(scale, scale);
+      draw();
+      ctx.restore();
+    }
+
+    function stageScale(name, time) {
+      var selected = hoveredStage === name || pinnedStage === name;
+      var breathe = name === 'flower' ? Math.sin(time * .002) * .018 : 0;
+      return 1 + (selected ? .06 : 0) + breathe;
+    }
+
+    function drawBackdrop(time) {
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = '#050505';
+      ctx.fillRect(0, 0, W, H);
+
+      var glow = ctx.createRadialGradient(W * .58, H * .42, 0, W * .58, H * .42, mobile ? 320 : 470);
+      glow.addColorStop(0, 'rgba(227,6,19,.055)');
+      glow.addColorStop(.48, 'rgba(227,6,19,.018)');
+      glow.addColorStop(1, 'rgba(227,6,19,0)');
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, 0, W, H);
+
+      dots.forEach(function (dot) {
+        var y = ((dot.y - time * dot.speed) % 1 + 1) % 1;
+        ctx.globalAlpha = dot.alpha;
+        ctx.fillStyle = dot.red ? '#E30613' : '#F0EDE8';
+        ctx.beginPath();
+        ctx.arc(dot.x * W, y * H, dot.size, 0, Math.PI * 2);
+        ctx.fill();
       });
-    }, { threshold: [0, 0.16] });
+      ctx.globalAlpha = 1;
+    }
 
-    observer.observe(section);
-    if (reduceMotion || !window.matchMedia('(pointer: fine)').matches) return;
+    function drawCorners() {
+      ctx.strokeStyle = 'rgba(240,237,232,.9)';
+      ctx.lineWidth = mobile ? 3 : 2;
+      var inset = mobile ? 24 : 28;
+      var len = mobile ? 20 : 24;
+      [[inset,inset,1,1],[W-inset,inset,-1,1],[inset,H-inset,1,-1],[W-inset,H-inset,-1,-1]].forEach(function (c) {
+        ctx.beginPath();
+        ctx.moveTo(c[0], c[1] + c[3] * len);
+        ctx.lineTo(c[0], c[1]);
+        ctx.lineTo(c[0] + c[2] * len, c[1]);
+        ctx.stroke();
+      });
+    }
 
-    var frame = 0;
-    section.addEventListener('pointermove', function (event) {
-      window.cancelAnimationFrame(frame);
-      frame = window.requestAnimationFrame(function () {
-        var bounds = section.getBoundingClientRect();
-        var x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
-        var y = ((event.clientY - bounds.top) / bounds.height) * 2 - 1;
-        section.style.setProperty('--cg-x', (x * 6).toFixed(2) + 'px');
-        section.style.setProperty('--cg-y', (y * 6).toFixed(2) + 'px');
-        section.style.setProperty('--cg-bg-x', (x * -2.5).toFixed(2) + 'px');
-        section.style.setProperty('--cg-bg-y', (y * -2.5).toFixed(2) + 'px');
-        var flower = section.querySelector('.coded-flower');
-        if (flower) {
-          flower.style.setProperty('--flower-x', (x * 8).toFixed(2) + 'px');
-          flower.style.setProperty('--flower-y', (y * 8).toFixed(2) + 'px');
+    function drawTitle(x, y, size, p) {
+      ctx.save();
+      ctx.globalAlpha = ease(p);
+      ctx.fillStyle = '#F0EDE8';
+      setFont(700, size, DISPLAY);
+      ctx.textBaseline = 'top';
+      ctx.fillText('THE GROWTH', x, y);
+      ctx.fillText('FRAMEWORK', x, y + size * .98);
+      ctx.fillStyle = '#E30613';
+      ctx.fillRect(x, y + size * 2.12, size * 3.05, mobile ? 5 : 6);
+      ctx.restore();
+    }
+
+    function drawSun(x, y, p, compact) {
+      var alpha = ease(p);
+      withNode(x, y, 1, alpha, function () {
+        ctx.strokeStyle = '#E30613';
+        ctx.fillStyle = '#E30613';
+        ctx.lineWidth = compact ? 4 : 3;
+        var radius = compact ? 32 : 30;
+        ctx.beginPath(); ctx.arc(0, 0, radius, 0, Math.PI * 2); ctx.fill();
+        for (var i = 0; i < 8; i += 1) {
+          var a = i * Math.PI / 4;
+          ctx.beginPath();
+          ctx.moveTo(Math.cos(a) * (radius + 10), Math.sin(a) * (radius + 10));
+          ctx.lineTo(Math.cos(a) * (radius + 24), Math.sin(a) * (radius + 24));
+          ctx.stroke();
         }
       });
+      ctx.save(); ctx.globalAlpha = alpha; ctx.textAlign = 'center';
+      ctx.fillStyle = '#F0EDE8'; setFont(700, compact ? 24 : 25, DISPLAY); ctx.fillText('SUN', x, y + (compact ? 68 : 66));
+      ctx.fillStyle = '#8A8880'; setFont(400, compact ? 14 : 14, MONO); ctx.fillText('You — the client', x, y + 97); ctx.fillText('— their light', x, y + 119);
+      ctx.restore();
+    }
+
+    function drawCloud(x, y, p, compact) {
+      var alpha = ease(p);
+      withNode(x, y, 1, alpha, function () {
+        ctx.fillStyle = '#F0EDE8';
+        ctx.beginPath(); ctx.arc(-30, 5, 22, 0, Math.PI * 2); ctx.arc(0, -6, 31, 0, Math.PI * 2); ctx.arc(31, 7, 23, 0, Math.PI * 2); ctx.fill();
+        ctx.fillRect(-31, 3, 63, 28);
+        ctx.lineWidth = 5; ctx.lineCap = 'round'; ctx.strokeStyle = '#F0EDE8';
+        [-25,0,25].forEach(function (dx) { ctx.beginPath(); ctx.moveTo(dx, 48); ctx.lineTo(dx - 5, 61); ctx.stroke(); });
+      });
+      ctx.save(); ctx.globalAlpha = alpha; ctx.textAlign = 'center';
+      ctx.fillStyle = '#F0EDE8'; setFont(700, compact ? 23 : 25, DISPLAY); ctx.fillText('LEONARD V.', x, y + 94);
+      ctx.fillStyle = '#8A8880'; setFont(400, compact ? 14 : 14, MONO); ctx.fillText('Consistent', x, y + 124); ctx.fillText('nurture', x, y + 146);
+      ctx.restore();
+    }
+
+    function drawDottedLine(x1, x2, y, alpha) {
+      ctx.save(); ctx.globalAlpha = alpha; ctx.strokeStyle = 'rgba(240,237,232,.72)'; ctx.lineWidth = 2; ctx.setLineDash([4,7]);
+      ctx.beginPath(); ctx.moveTo(x1, y); ctx.lineTo(x2, y); ctx.stroke(); ctx.setLineDash([]); ctx.restore();
+    }
+
+    function drawStageCopy(x, y, number, name, lines, alpha, compact) {
+      ctx.save(); ctx.globalAlpha = alpha; ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#E30613'; setFont(700, compact ? 16 : 18, MONO); ctx.fillText(number, x, y);
+      ctx.fillStyle = '#F0EDE8'; setFont(700, compact ? 23 : 26, DISPLAY); ctx.fillText(name, x + (compact ? 42 : 50), y);
+      ctx.fillStyle = '#8A8880'; setFont(400, compact ? 13 : 15, MONO);
+      lines.forEach(function (line, index) { ctx.fillText(line, x, y + (compact ? 34 : 40) + index * (compact ? 20 : 22)); });
+      ctx.restore();
+    }
+
+    function drawSales(x, y, p, time, compact) {
+      var alpha = ease(p), scale = stageScale('sales', time) * (.84 + .16 * alpha);
+      withNode(x, y, scale, alpha, function () {
+        ctx.strokeStyle = 'rgba(227,6,19,.55)'; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(0,0,compact?35:37,0,Math.PI*2); ctx.stroke();
+        ctx.beginPath(); ctx.arc(0,0,compact?27:29,time*.00045,time*.00045+Math.PI*1.55); ctx.stroke();
+        ctx.fillStyle = '#E30613'; ctx.shadowBlur = 24; ctx.shadowColor = 'rgba(227,6,19,.5)';
+        ctx.beginPath(); ctx.arc(0,0,compact?18:19,0,Math.PI*2); ctx.fill(); ctx.shadowBlur = 0;
+      });
+    }
+
+    function drawTarget(x, y, p, name, compact) {
+      var alpha = ease(p), scale = stageScale(name, 0) * (.82 + .18 * alpha);
+      withNode(x, y, scale, alpha, function () {
+        ctx.strokeStyle = 'rgba(227,6,19,.58)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(0,0,compact?31:31,0,Math.PI*2); ctx.stroke();
+        ctx.fillStyle = '#F5A2B8'; ctx.beginPath(); ctx.arc(0,0,compact?21:22,0,Math.PI*2); ctx.fill();
+        ctx.fillStyle = '#050505'; ctx.beginPath(); ctx.arc(0,0,compact?9:9,0,Math.PI*2); ctx.fill();
+      });
+    }
+
+    function drawFlower(x, y, p, time, compact) {
+      var alpha = ease(p), unfold = ease(p), scale = stageScale('flower', time) * (.76 + .24 * unfold);
+      withNode(x, y, scale, alpha, function () {
+        var distance = (compact ? 30 : 33) * unfold;
+        ctx.fillStyle = '#F5A2B8'; ctx.shadowBlur = 24 * unfold; ctx.shadowColor = 'rgba(227,6,19,.36)';
+        [[0,-distance],[distance,0],[0,distance],[-distance,0]].forEach(function (pt) {
+          ctx.save(); ctx.translate(pt[0],pt[1]); ctx.scale(pt[0]===0?1:1.18,pt[1]===0?1:1.18); ctx.beginPath(); ctx.arc(0,0,compact?20:21,0,Math.PI*2); ctx.fill(); ctx.restore();
+        });
+        ctx.shadowBlur = 0; ctx.fillStyle = '#E30613'; ctx.beginPath(); ctx.arc(0,0,compact?20:21,0,Math.PI*2); ctx.fill();
+        ctx.fillStyle = '#050505'; ctx.beginPath(); ctx.arc(0,0,compact?8:8,0,Math.PI*2); ctx.fill();
+      });
+    }
+
+    function drawBattery(x, y, p, time, compact) {
+      var alpha = ease(p), scale = stageScale('battery', time) * (.86 + .14 * alpha), width = compact ? 42 : 48, height = compact ? 72 : 82;
+      withNode(x, y, scale, alpha, function () {
+        ctx.fillStyle = '#F0EDE8'; roundRect(-10,-height/2-10,20,12,3); ctx.fill();
+        ctx.strokeStyle = '#F0EDE8'; ctx.lineWidth = 3; roundRect(-width/2,-height/2,width,height,7); ctx.stroke();
+        var fillH = (height - 10) * ease(p); ctx.fillStyle = '#E30613'; roundRect(-width/2+5,height/2-5-fillH,width-10,fillH,3); ctx.fill();
+        ctx.fillStyle = '#050505'; ctx.beginPath(); ctx.moveTo(4,-19); ctx.lineTo(-7,1); ctx.lineTo(0,1); ctx.lineTo(-4,20); ctx.lineTo(9,-3); ctx.lineTo(2,-3); ctx.closePath(); ctx.fill();
+      });
+    }
+
+    function drawRoots(x, y, p, compact) {
+      var alpha = ease(p), length = ease(p), branches = compact ? [[0,0,-55,45],[0,0,58,45],[0,8,-32,67],[0,8,31,68],[-15,22,-70,25],[16,22,73,28],[-28,39,-43,72],[28,39,48,72]] : [[0,0,-78,53],[0,0,79,53],[0,8,-43,83],[0,8,45,83],[-20,25,-95,32],[20,25,96,35],[-39,49,-57,93],[42,51,65,91]];
+      ctx.save(); ctx.globalAlpha = alpha; ctx.translate(x,y); ctx.strokeStyle = '#F0EDE8'; ctx.lineWidth = compact ? 2 : 2; ctx.lineCap = 'round';
+      branches.forEach(function (b) { ctx.beginPath(); ctx.moveTo(b[0],b[1]); ctx.lineTo(lerp(b[0],b[2],length),lerp(b[1],b[3],length)); ctx.stroke(); });
+      ctx.restore();
+    }
+
+    function drawSeed(x, y, p, compact) {
+      var alpha = ease(p), scale = stageScale('seed', 0) * (.86 + .14 * alpha);
+      withNode(x, y, scale, alpha, function () {
+        ctx.save(); ctx.rotate(-.72); ctx.strokeStyle = '#F0EDE8'; ctx.lineWidth = compact ? 7 : 8; ctx.beginPath(); ctx.ellipse(0,0,compact?13:14,compact?24:26,0,0,Math.PI*2); ctx.stroke(); ctx.restore();
+      });
+    }
+
+    function drawDesktop(progressValue, time) {
+      var intro = phase(progressValue, 0, .15);
+      var sourceP = phase(progressValue, .06, .27);
+      var seedP = phase(progressValue, .08, .22);
+      var batteryP = phase(progressValue, .2, .36);
+      var rootsP = phase(progressValue, .34, .5);
+      var flowerP = phase(progressValue, .48, .67);
+      var leadsP = phase(progressValue, .65, .82);
+      var salesP = phase(progressValue, .8, 1);
+      var lineP = ease(phase(progressValue, .1, .88));
+      var lineX = 940, salesY = 90, leadsY = 218, flowerY = 360, rootsY = 500, batteryY = 615, seedY = 760;
+
+      drawTitle(85, 112, 74, intro);
+      drawSun(365, 420, sourceP, false);
+      drawCloud(385, 670, sourceP, false);
+
+      ctx.save(); ctx.globalAlpha = Math.max(.12, lineP); ctx.strokeStyle = '#F0EDE8'; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(lineX, seedY - 48); ctx.lineTo(lineX, lerp(seedY - 48, salesY, lineP)); ctx.stroke(); ctx.restore();
+
+      ctx.save(); ctx.globalAlpha = seedP; ctx.fillStyle = 'rgba(255,255,255,.035)'; ctx.strokeStyle = 'rgba(255,255,255,.34)'; ctx.lineWidth = 1.5; roundRect(720,706,555,128,10); ctx.fill(); ctx.stroke(); ctx.restore();
+      drawRoots(lineX, 706, seedP, false); drawSeed(lineX, 786, seedP, false);
+      drawDottedLine(1048,1132,760,seedP); drawStageCopy(1120,760,'01','SEED',['The business begins','with clarity.'],seedP,false);
+
+      drawDottedLine(lineX,1017,batteryY,batteryP); drawBattery(1054,batteryY,batteryP,time,false); drawDottedLine(1088,1132,batteryY,batteryP); drawStageCopy(1158,batteryY,'02','AA BATTERY',['Aesthetic + authenticity','create the energy to move.'],batteryP,false);
+      drawTarget(lineX,rootsY,rootsP,'roots',false); drawDottedLine(978,1132,rootsY,rootsP); drawStageCopy(1158,rootsY,'03','ROOTS',['Visibility + awareness build','a foundation that compounds.'],rootsP,false);
+      drawFlower(lineX,flowerY,flowerP,time,false); drawDottedLine(990,1132,flowerY,flowerP); drawStageCopy(1158,flowerY,'04','FLOWER',['Engagement turns attention','into genuine connection.'],flowerP,false);
+      drawTarget(lineX,leadsY,leadsP,'leads',false); drawDottedLine(978,1132,leadsY,leadsP); drawStageCopy(1158,leadsY,'05','LEADS',['Email signups, DMs, forms,','and qualified conversations.'],leadsP,false);
+      drawSales(lineX,salesY,salesP,time,false); drawDottedLine(984,1132,salesY,salesP); drawStageCopy(1158,salesY,'06','SALES',['Conversion \u2014 sustained attention','becomes revenue.'],salesP,false);
+
+      ctx.save(); ctx.globalAlpha = seedP; ctx.textAlign = 'center'; setFont(700,16,MONO); ctx.fillStyle = '#E30613'; ctx.fillText('SOIL',860,873); ctx.fillStyle = '#8A8880'; setFont(400,16,MONO); ctx.fillText('→  IG, TikTok, FB, LinkedIn',1018,873); ctx.restore();
+    }
+
+    function drawMobile(progressValue, time) {
+      var intro = phase(progressValue, 0, .15);
+      var sourceP = phase(progressValue, .06, .27);
+      var seedP = phase(progressValue, .08, .22);
+      var batteryP = phase(progressValue, .2, .36);
+      var rootsP = phase(progressValue, .34, .5);
+      var flowerP = phase(progressValue, .48, .67);
+      var leadsP = phase(progressValue, .65, .82);
+      var salesP = phase(progressValue, .8, 1);
+      var lineP = ease(phase(progressValue, .1, .88));
+      var lineX = 180, salesY = 450, leadsY = 560, flowerY = 690, rootsY = 815, batteryY = 930, seedY = 1050;
+
+      drawTitle(54, 62, 52, intro);
+      drawSun(175, 260, sourceP, true);
+      drawCloud(500, 260, sourceP, true);
+
+      ctx.save(); ctx.globalAlpha = Math.max(.12,lineP); ctx.strokeStyle = '#F0EDE8'; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(lineX,seedY-42); ctx.lineTo(lineX,lerp(seedY-42,salesY,lineP)); ctx.stroke(); ctx.restore();
+
+      drawSales(lineX,salesY,salesP,time,true); drawDottedLine(224,250,salesY,salesP); drawStageCopy(265,salesY,'06','SALES',['Conversion \u2014 sustained attention','becomes revenue.'],salesP,true);
+      drawTarget(lineX,leadsY,leadsP,'leads',true); drawDottedLine(220,250,leadsY,leadsP); drawStageCopy(265,leadsY,'05','LEADS',['Email signups, DMs, forms,','and qualified conversations.'],leadsP,true);
+      drawFlower(lineX,flowerY,flowerP,time,true); drawDottedLine(228,250,flowerY,flowerP); drawStageCopy(265,flowerY,'04','FLOWER',['Engagement turns attention','into genuine connection.'],flowerP,true);
+      drawTarget(lineX,rootsY,rootsP,'roots',true); drawDottedLine(220,250,rootsY,rootsP); drawStageCopy(265,rootsY,'03','ROOTS',['Visibility + awareness build','a foundation that compounds.'],rootsP,true);
+      drawBattery(lineX,batteryY,batteryP,time,true); drawDottedLine(214,250,batteryY,batteryP); drawStageCopy(265,batteryY,'02','AA BATTERY',['Aesthetic + authenticity','create the energy to move.'],batteryP,true);
+
+      ctx.save(); ctx.globalAlpha=seedP; ctx.fillStyle='rgba(255,255,255,.035)'; ctx.strokeStyle='rgba(255,255,255,.34)'; ctx.lineWidth=1.5; roundRect(74,1000,572,126,12); ctx.fill(); ctx.stroke(); ctx.restore();
+      drawRoots(lineX,1000,seedP,true); drawSeed(lineX,1082,seedP,true); drawDottedLine(232,250,1050,seedP); drawStageCopy(265,1050,'01','SEED',['The business begins','with clarity.'],seedP,true);
+      ctx.save(); ctx.globalAlpha=seedP; ctx.textAlign='center'; ctx.fillStyle='#E30613'; setFont(700,14,MONO); ctx.fillText('SOIL',300,1157); ctx.fillStyle='#8A8880'; setFont(400,14,MONO); ctx.fillText('→ IG, TikTok, FB, LinkedIn',462,1157); ctx.restore();
+    }
+
+    function render(time) {
+      drawBackdrop(time || 0);
+      drawCorners();
+      if (mobile) drawMobile(progress,time||0); else drawDesktop(progress,time||0);
+    }
+
+    function tick(time) {
+      if (!visible || document.hidden) { animationFrame = 0; return; }
+      if (!reducedMotion && active) progress = clamp((time - startTime) / duration, 0, 1);
+      render(time);
+      animationFrame = window.requestAnimationFrame(tick);
+    }
+
+    function start() {
+      if (animationFrame || !visible || document.hidden) return;
+      animationFrame = window.requestAnimationFrame(tick);
+    }
+
+    function resize() {
+      mobile = shell.clientWidth <= 720;
+      W = mobile ? 720 : 1672;
+      H = mobile ? 1180 : 941;
+      shell.style.aspectRatio = W + ' / ' + H;
+      var density = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(W * density);
+      canvas.height = Math.round(H * density);
+      ctx.setTransform(density,0,0,density,0,0);
+      dots = Array.from({length:mobile?36:60},function (_,index) {
+        var seed = (index * 9301 + 49297) % 233280;
+        return {x:((seed * 37)%997)/997,y:((seed*73)%991)/991,size:.45+((seed%17)/17)*1.15,alpha:.035+((seed%23)/23)*.11,speed:.000002+((seed%13)/13)*.000006,red:index%11===0};
+      });
+      render(performance.now());
+    }
+
+    section.querySelectorAll('.growth-canvas-stage-control').forEach(function (control) {
+      control.addEventListener('pointerenter',function(){hoveredStage=control.dataset.stage; render(performance.now());});
+      control.addEventListener('pointerleave',function(){hoveredStage=''; render(performance.now());});
+      control.addEventListener('focus',function(){hoveredStage=control.dataset.stage; render(performance.now());});
+      control.addEventListener('blur',function(){hoveredStage=''; render(performance.now());});
+      control.addEventListener('click',function(){pinnedStage=pinnedStage===control.dataset.stage?'':control.dataset.stage; render(performance.now());});
     });
 
-    section.addEventListener('pointerleave', function () {
-      section.style.setProperty('--cg-x', '0px');
-      section.style.setProperty('--cg-y', '0px');
-      section.style.setProperty('--cg-bg-x', '0px');
-      section.style.setProperty('--cg-bg-y', '0px');
-      var flower = section.querySelector('.coded-flower');
-      if (flower) {
-        flower.style.setProperty('--flower-x', '0px');
-        flower.style.setProperty('--flower-y', '0px');
-      }
-    });
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.intersectionRatio >= .16) {
+          visible = true;
+          active = true;
+          progress = reducedMotion ? 1 : 0;
+          startTime = performance.now();
+          section.classList.add('is-active');
+          start();
+        } else if (entry.intersectionRatio === 0) {
+          visible = false;
+          active = false;
+          section.classList.remove('is-active');
+          if (animationFrame) window.cancelAnimationFrame(animationFrame);
+          animationFrame = 0;
+        }
+      });
+    },{threshold:[0,.16]});
 
-    section.querySelectorAll('.coded-stage__control').forEach(function (control) {
-      control.addEventListener('pointermove', function (event) {
-        var bounds = control.getBoundingClientRect();
-        var x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
-        var y = ((event.clientY - bounds.top) / bounds.height) * 2 - 1;
-        control.style.setProperty('--stage-x', (x * 3).toFixed(2) + 'px');
-        control.style.setProperty('--stage-y', (y * 3).toFixed(2) + 'px');
-      });
-      control.addEventListener('pointerleave', function () {
-        control.style.setProperty('--stage-x', '0px');
-        control.style.setProperty('--stage-y', '0px');
-      });
-    });
+    window.addEventListener('resize',resize,{passive:true});
+    document.addEventListener('visibilitychange',start);
+    resize();
+    observer.observe(section);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){resize();});
   })();
   </script>
   
