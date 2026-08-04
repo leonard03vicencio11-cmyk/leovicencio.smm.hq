@@ -2810,6 +2810,186 @@ footer {
       })();
     </script>
 
+    <style id="introduction-video-style">
+      #introduction-video {
+        position: relative;
+        overflow: hidden;
+        padding: clamp(76px, 8vw, 112px) 48px 24px;
+        background: #050505;
+        border-top: 1px solid rgba(255, 255, 255, .045);
+      }
+
+      #introduction-video::before {
+        content: "";
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        width: min(70vw, 920px);
+        aspect-ratio: 1.9 / 1;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(227, 6, 19, .075), transparent 68%);
+        filter: blur(38px);
+        transform: translateX(-50%);
+        pointer-events: none;
+      }
+
+      .introduction-video-inner {
+        position: relative;
+        z-index: 1;
+        width: min(100%, 1200px);
+        margin: 0 auto;
+      }
+
+      .introduction-video-header {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(260px, 420px);
+        align-items: end;
+        gap: 48px;
+        margin-bottom: 34px;
+      }
+
+      .introduction-video-eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 18px;
+        font-family: var(--font-mono);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: .18em;
+        color: var(--red);
+        text-transform: uppercase;
+      }
+
+      .introduction-video-eyebrow::before {
+        content: "";
+        width: 28px;
+        height: 1px;
+        background: var(--red);
+      }
+
+      .introduction-video-title {
+        margin: 0;
+        font-family: 'Space Grotesk', Arial, sans-serif;
+        font-size: clamp(38px, 5vw, 68px);
+        font-weight: 700;
+        line-height: .98;
+        letter-spacing: -.035em;
+        color: var(--text1);
+      }
+
+      .introduction-video-copy {
+        max-width: 420px;
+        margin: 0 0 4px;
+        font-size: 14px;
+        line-height: 1.75;
+        color: var(--text2);
+      }
+
+      .introduction-video-frame {
+        position: relative;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, .08);
+        border-radius: 28px;
+        background: #0D0D0D;
+        box-shadow: 0 30px 90px rgba(0, 0, 0, .34), 0 0 90px rgba(227, 6, 19, .075);
+        opacity: 0;
+        transform: translateY(18px) scale(.992);
+        transition: opacity .8s cubic-bezier(.22, 1, .36, 1), transform .8s cubic-bezier(.22, 1, .36, 1), border-color .3s ease, box-shadow .3s ease;
+      }
+
+      .introduction-video-frame::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        border-radius: inherit;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .025);
+        pointer-events: none;
+      }
+
+      .introduction-video-frame.is-visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      .introduction-video-frame:hover {
+        border-color: rgba(255, 255, 255, .13);
+        box-shadow: 0 34px 100px rgba(0, 0, 0, .4), 0 0 100px rgba(227, 6, 19, .09);
+      }
+
+      .introduction-video-frame iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+
+      @media (max-width: 760px) {
+        #introduction-video { padding: 68px 20px 0; }
+        .introduction-video-header {
+          grid-template-columns: 1fr;
+          gap: 18px;
+          margin-bottom: 26px;
+        }
+        .introduction-video-copy { max-width: 540px; }
+        .introduction-video-frame { border-radius: 18px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .introduction-video-frame {
+          opacity: 1;
+          transform: none;
+          transition: border-color .3s ease, box-shadow .3s ease;
+        }
+      }
+    </style>
+
+    <section id="introduction-video" aria-labelledby="introduction-video-title">
+      <div class="introduction-video-inner">
+        <div class="introduction-video-header">
+          <div>
+            <div class="introduction-video-eyebrow">Introduction</div>
+            <h2 class="introduction-video-title" id="introduction-video-title">Meet Leonard Vicencio.</h2>
+          </div>
+          <p class="introduction-video-copy">A short introduction to who I am, how I think, and the approach I bring to social media growth.</p>
+        </div>
+
+        <div class="introduction-video-frame">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/rtoGlFpqLc4?rel=0&amp;playsinline=1"
+            title="Introduction video by Leonard Vicencio"
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+    <script id="introduction-video-script">
+      (function () {
+        var frame = document.querySelector('.introduction-video-frame');
+        if (!frame) return;
+
+        var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduced || !('IntersectionObserver' in window)) {
+          frame.classList.add('is-visible');
+          return;
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+          if (!entries[0].isIntersecting) return;
+          frame.classList.add('is-visible');
+          observer.disconnect();
+        }, { threshold: .18 });
+
+        observer.observe(frame);
+      })();
+    </script>
+
 <!-- PACKAGES -->
 
   <!-- ═══════════════════════════════════════
