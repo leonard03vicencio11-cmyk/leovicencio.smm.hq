@@ -5,7 +5,7 @@ Leonard Vicencio, also known as Leo Vicencio, is a Philippines-based Social Medi
 ## Primary pages
 
 - Portfolio home and services: https://leovicencio-smm-hq.vercel.app/
-- Social media case studies: https://leovicencio-smm-hq.vercel.app/works.html
+- Social media case studies: https://leovicencio-smm-hq.vercel.app/works
 - Frequently asked questions: https://leovicencio-smm-hq.vercel.app/#faq
 - Project intake: https://leovicencio-smm-hq.vercel.app/#intake
 
