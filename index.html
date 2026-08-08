@@ -3568,6 +3568,8 @@ footer {
         .lvcs-tool{display:flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:10px;color:var(--text2);padding:3px 0;}
         .lvcs-tool i{color:var(--red);width:14px;text-align:center;font-size:11px;}
         .lvcs-logo{width:15px;height:15px;object-fit:contain;margin-right:7px;vertical-align:-3px;border-radius:3px;background:#fff;padding:2px;box-sizing:content-box;}
+        .lvcs-logo.is-missing{display:none;}
+        .lvcs-tool:has(.lvcs-logo.is-missing)::before{content:"•";display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;margin-right:7px;border-radius:3px;background:#E30613;color:#fff;font-size:12px;line-height:1;box-sizing:border-box;}
         .lvcs-star{color:#E8B923;font-size:9px;margin-left:2px;}
         .lvcs-side{display:flex;flex-wrap:wrap;gap:8px;}
         .lvcs-master-row{display:grid;grid-template-columns:1.2fr 2fr;gap:16px;align-items:start;}
@@ -3591,16 +3593,16 @@ footer {
           <div class="lvcs-side">
             <div class="lvcs-cat"><div class="lvcs-cat-label">STRATEGY &amp; OPERATIONS</div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/notion" alt="" onerror="this.style.display='none'"/>Notion</div>
-              <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/googleworkspace" alt="" onerror="this.style.display='none'"/>Google Workspace</div>
+              <div class="lvcs-tool"><img class="lvcs-logo" src="https://api.iconify.design/logos/google-workspace.svg" alt="" onerror="this.classList.add('is-missing')"/>Google Workspace</div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/clickup" alt="" onerror="this.style.display='none'"/>ClickUp</div>
             </div>
             <div class="lvcs-cat"><div class="lvcs-cat-label">AI STRATEGY</div>
-              <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/openai" alt="" onerror="this.style.display='none'"/>ChatGPT<span class="lvcs-star">&#9733;</span></div>
+              <div class="lvcs-tool"><img class="lvcs-logo" src="https://api.iconify.design/logos/openai-icon.svg" alt="" onerror="this.classList.add('is-missing')"/>ChatGPT<span class="lvcs-star">&#9733;</span></div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/anthropic" alt="" onerror="this.style.display='none'"/>Claude</div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/perplexity" alt="" onerror="this.style.display='none'"/>Perplexity</div>
             </div>
             <div class="lvcs-cat"><div class="lvcs-cat-label">CLIENT COMMUNICATION</div>
-              <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/slack" alt="" onerror="this.style.display='none'"/>Slack</div>
+              <div class="lvcs-tool"><img class="lvcs-logo" src="https://api.iconify.design/logos/slack-icon.svg" alt="" onerror="this.classList.add('is-missing')"/>Slack</div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/googlemeet" alt="" onerror="this.style.display='none'"/>Google Meet</div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/zoom" alt="" onerror="this.style.display='none'"/>Zoom</div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/loom" alt="" onerror="this.style.display='none'"/>Loom</div>
@@ -3629,28 +3631,28 @@ footer {
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/meta" alt="" onerror="this.style.display='none'"/>Meta Business Suite</div>
             </div>
             <div class="lvcs-cat"><div class="lvcs-cat-label">GRAPHIC DESIGN</div>
-              <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/canva" alt="" onerror="this.style.display='none'"/>Canva Pro<span class="lvcs-star">&#9733;</span></div>
-              <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/adobe" alt="" onerror="this.style.display='none'"/>Adobe Express</div>
+              <div class="lvcs-tool"><img class="lvcs-logo" src="https://www.google.com/s2/favicons?domain=canva.com&amp;sz=128" alt="" onerror="this.classList.add('is-missing')"/>Canva Pro<span class="lvcs-star">&#9733;</span></div>
+              <div class="lvcs-tool"><img class="lvcs-logo" src="https://api.iconify.design/logos/adobe-icon.svg" alt="" onerror="this.classList.add('is-missing')"/>Adobe Express</div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/figma" alt="" onerror="this.style.display='none'"/>Figma</div>
             </div>
             <div class="lvcs-cat"><div class="lvcs-cat-label">VIDEO EDITING</div>
-              <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/capcut" alt="" onerror="this.style.display='none'"/>CapCut<span class="lvcs-star">&#9733;</span></div>
-              <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/canva" alt="" onerror="this.style.display='none'"/>Canva Video</div>
-              <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/vn" alt="" onerror="this.style.display='none'"/>VN Editor</div>
+              <div class="lvcs-tool"><img class="lvcs-logo" src="https://www.google.com/s2/favicons?domain=capcut.com&amp;sz=128" alt="" onerror="this.classList.add('is-missing')"/>CapCut<span class="lvcs-star">&#9733;</span></div>
+              <div class="lvcs-tool"><img class="lvcs-logo" src="https://www.google.com/s2/favicons?domain=canva.com&amp;sz=128" alt="" onerror="this.classList.add('is-missing')"/>Canva Video</div>
+              <div class="lvcs-tool"><img class="lvcs-logo" src="https://www.google.com/s2/favicons?domain=vlognow.me&amp;sz=128" alt="" onerror="this.classList.add('is-missing')"/>VN Editor</div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/davinciresolve" alt="" onerror="this.style.display='none'"/>DaVinci Resolve</div>
-              <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/adobepremierepro" alt="" onerror="this.style.display='none'"/>Adobe Premiere Pro</div>
+              <div class="lvcs-tool"><img class="lvcs-logo" src="https://api.iconify.design/logos/adobe-premiere.svg" alt="" onerror="this.classList.add('is-missing')"/>Adobe Premiere Pro</div>
             </div>
             <div class="lvcs-cat"><div class="lvcs-cat-label">AI CONTENT</div>
-              <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/openai" alt="" onerror="this.style.display='none'"/>ChatGPT</div>
+              <div class="lvcs-tool"><img class="lvcs-logo" src="https://api.iconify.design/logos/openai-icon.svg" alt="" onerror="this.classList.add('is-missing')"/>ChatGPT</div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/anthropic" alt="" onerror="this.style.display='none'"/>Claude</div>
             </div>
             <div class="lvcs-cat"><div class="lvcs-cat-label">SCHEDULING</div>
-              <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/metricool" alt="" onerror="this.style.display='none'"/>Metricool<span class="lvcs-star">&#9733;</span></div>
+              <div class="lvcs-tool"><img class="lvcs-logo" src="https://www.google.com/s2/favicons?domain=metricool.com&amp;sz=128" alt="" onerror="this.classList.add('is-missing')"/>Metricool<span class="lvcs-star">&#9733;</span></div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/meta" alt="" onerror="this.style.display='none'"/>Meta Business Suite</div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/buffer" alt="" onerror="this.style.display='none'"/>Buffer</div>
             </div>
             <div class="lvcs-cat"><div class="lvcs-cat-label">ANALYTICS</div>
-              <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/metricool" alt="" onerror="this.style.display='none'"/>Metricool</div>
+              <div class="lvcs-tool"><img class="lvcs-logo" src="https://www.google.com/s2/favicons?domain=metricool.com&amp;sz=128" alt="" onerror="this.classList.add('is-missing')"/>Metricool</div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/meta" alt="" onerror="this.style.display='none'"/>Meta Insights</div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/instagram" alt="" onerror="this.style.display='none'"/>Instagram Insights</div>
             </div>
@@ -3680,7 +3682,7 @@ footer {
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/facebook" alt="" onerror="this.style.display='none'"/>Facebook Business Suite</div>
             </div>
             <div class="lvcs-cat" style="margin-top:8px;"><div class="lvcs-cat-label">COMMUNITY MONITORING</div>
-              <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/metricool" alt="" onerror="this.style.display='none'"/>Metricool</div>
+                <div class="lvcs-tool"><img class="lvcs-logo" src="https://www.google.com/s2/favicons?domain=metricool.com&amp;sz=128" alt="" onerror="this.classList.add('is-missing')"/>Metricool</div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/meta" alt="" onerror="this.style.display='none'"/>Meta Notifications</div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/facebook" alt="" onerror="this.style.display='none'"/>Facebook Groups</div>
             </div>
@@ -3690,7 +3692,7 @@ footer {
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/pinterest" alt="" onerror="this.style.display='none'"/>Pinterest</div>
             </div>
             <div class="lvcs-cat" style="margin-top:8px;"><div class="lvcs-cat-label">AI ASSISTANT</div>
-              <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/openai" alt="" onerror="this.style.display='none'"/>ChatGPT</div>
+                <div class="lvcs-tool"><img class="lvcs-logo" src="https://api.iconify.design/logos/openai-icon.svg" alt="" onerror="this.classList.add('is-missing')"/>ChatGPT</div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/anthropic" alt="" onerror="this.style.display='none'"/>Claude</div>
             </div>
             <div class="lvcs-cat" style="margin-top:8px;"><div class="lvcs-cat-label">UGC MANAGEMENT</div>
@@ -3699,7 +3701,7 @@ footer {
             </div>
             <div class="lvcs-cat" style="margin-top:8px;"><div class="lvcs-cat-label">ANALYTICS</div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/meta" alt="" onerror="this.style.display='none'"/>Meta Insights</div>
-              <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/metricool" alt="" onerror="this.style.display='none'"/>Metricool</div>
+                <div class="lvcs-tool"><img class="lvcs-logo" src="https://www.google.com/s2/favicons?domain=metricool.com&amp;sz=128" alt="" onerror="this.classList.add('is-missing')"/>Metricool</div>
             </div>
           </div>
         </div>
@@ -3722,11 +3724,11 @@ footer {
             <div class="lvcs-cat" style="margin-top:8px;"><div class="lvcs-cat-label">FORMS</div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/googleforms" alt="" onerror="this.style.display='none'"/>Google Forms</div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/typeform" alt="" onerror="this.style.display='none'"/>Typeform</div>
-              <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/tally" alt="" onerror="this.style.display='none'"/>Tally</div>
+                <div class="lvcs-tool"><img class="lvcs-logo" src="https://www.google.com/s2/favicons?domain=tally.so&amp;sz=128" alt="" onerror="this.classList.add('is-missing')"/>Tally</div>
             </div>
             <div class="lvcs-cat" style="margin-top:8px;"><div class="lvcs-cat-label">EMAIL MARKETING</div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/mailchimp" alt="" onerror="this.style.display='none'"/>Mailchimp</div>
-              <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/convertkit" alt="" onerror="this.style.display='none'"/>ConvertKit</div>
+                <div class="lvcs-tool"><img class="lvcs-logo" src="https://www.google.com/s2/favicons?domain=kit.com&amp;sz=128" alt="" onerror="this.classList.add('is-missing')"/>Kit (formerly ConvertKit)</div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/brevo" alt="" onerror="this.style.display='none'"/>Brevo</div>
             </div>
             <div class="lvcs-cat" style="margin-top:8px;"><div class="lvcs-cat-label">BOOKING</div>
@@ -3761,7 +3763,7 @@ footer {
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/notion" alt="" onerror="this.style.display='none'"/>Notion CRM</div>
             </div>
             <div class="lvcs-cat" style="margin-top:8px;"><div class="lvcs-cat-label">PROPOSAL CREATION</div>
-              <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/canva" alt="" onerror="this.style.display='none'"/>Canva Docs</div>
+                <div class="lvcs-tool"><img class="lvcs-logo" src="https://www.google.com/s2/favicons?domain=canva.com&amp;sz=128" alt="" onerror="this.classList.add('is-missing')"/>Canva Docs</div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/googledocs" alt="" onerror="this.style.display='none'"/>Google Docs</div>
             </div>
             <div class="lvcs-cat" style="margin-top:8px;"><div class="lvcs-cat-label">CLIENT ONBOARDING</div>
@@ -3774,7 +3776,7 @@ footer {
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/googlemeet" alt="" onerror="this.style.display='none'"/>Google Meet</div>
             </div>
             <div class="lvcs-cat" style="margin-top:8px;"><div class="lvcs-cat-label">AI SALES ASSISTANT</div>
-              <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/openai" alt="" onerror="this.style.display='none'"/>ChatGPT</div>
+                <div class="lvcs-tool"><img class="lvcs-logo" src="https://api.iconify.design/logos/openai-icon.svg" alt="" onerror="this.classList.add('is-missing')"/>ChatGPT</div>
               <div class="lvcs-tool"><img class="lvcs-logo" src="https://cdn.simpleicons.org/anthropic" alt="" onerror="this.style.display='none'"/>Claude</div>
             </div>
             <div class="lvcs-cat" style="margin-top:8px;"><div class="lvcs-cat-label">REPORTING</div>
