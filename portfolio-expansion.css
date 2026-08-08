@@ -81,6 +81,23 @@
 .intake-response--error .intake-response__title { color: var(--red); }
 .intake-response p { margin: 0; color: var(--text2); font-size: 12px; line-height: 1.7; }
 
+.premium-hero-entity { max-width: 610px; margin: 22px 0 0; color: var(--text2); font-size: clamp(13px, 1.25vw, 15px); line-height: 1.75; }
+
+.seo-faq { display: grid; grid-template-columns: minmax(240px,.72fr) minmax(0,1.28fr); gap: clamp(44px,7vw,110px); border-top: 1px solid var(--border); }
+.seo-faq__intro { max-width: 440px; }
+.seo-faq__intro h2 { margin: 16px 0 18px; color: var(--text1); font-family: var(--font-display); font-size: clamp(36px,5vw,64px); line-height: .98; letter-spacing: -.045em; }
+.seo-faq__intro h2 span { color: var(--red); }
+.seo-faq__intro p { color: var(--text3); font-size: 13px; line-height: 1.8; }
+.seo-faq__list { border-top: 1px solid var(--border2); }
+.seo-faq details { border-bottom: 1px solid var(--border2); }
+.seo-faq summary { position: relative; padding: 24px 46px 24px 0; color: var(--text1); cursor: pointer; list-style: none; font-family: var(--font-display); font-size: clamp(16px,1.8vw,21px); font-weight: 500; line-height: 1.4; }
+.seo-faq summary::-webkit-details-marker { display: none; }
+.seo-faq summary::after { content: "+"; position: absolute; top: 22px; right: 4px; color: var(--red); font-family: var(--font-mono); font-size: 20px; font-weight: 400; transition: transform .2s ease; }
+.seo-faq details[open] summary::after { transform: rotate(45deg); }
+.seo-faq details p { max-width: 760px; padding: 0 52px 25px 0; color: var(--text2); font-size: 13px; line-height: 1.8; }
+.seo-faq details a { color: var(--text1); text-underline-offset: 4px; }
+.seo-faq details a:hover, .seo-faq details a:focus-visible { color: var(--red); }
+
 .portfolio-footer { display: block; padding: 52px max(24px, calc((100vw - 1200px) / 2)); background: #070707; }
 .portfolio-footer .portfolio-footer__links { position: static; inset: auto; z-index: auto; display: flex; width: 100%; height: auto; flex-wrap: wrap; justify-content: center; gap: 12px 26px; padding: 0 0 34px; border: 0; border-bottom: 1px solid var(--border); background: transparent; backdrop-filter: none; }
 .portfolio-footer__links a { color: var(--text3); font-family: var(--font-mono); font-size: 9px; letter-spacing: .08em; text-decoration: none; transition: color .2s ease; }
@@ -98,6 +115,7 @@
   .solution-packages .pkg-tagline { min-height: 0; }
   .contact-hub { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .intake-protocol__grid { grid-template-columns: 1fr; }
+  .seo-faq { grid-template-columns: 1fr; }
 }
 @media (max-width: 620px) {
   .system-block, .solution-packages { margin: 68px 0; }
