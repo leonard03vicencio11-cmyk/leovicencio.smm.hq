@@ -178,6 +178,22 @@
 </script>
 
 <!-- ══ PERFORMANCE & INDEXING HINTS ══ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "@id": "https://leovicencio-smm-hq.vercel.app/#introduction-video",
+  "name": "Meet Leonard Vicencio — Social Media Marketing Introduction",
+  "description": "Leonard Vicencio introduces his approach to social media strategy, content systems, engagement, lead generation, and business growth.",
+  "thumbnailUrl": "https://leovicencio-smm-hq.vercel.app/leonard-v-smm-intro-poster.jpg",
+  "uploadDate": "2026-08-04",
+  "duration": "PT1M53S",
+  "contentUrl": "https://leovicencio-smm-hq.vercel.app/leonard-v-smm-intro.mp4",
+  "isPartOf": {"@id": "https://leovicencio-smm-hq.vercel.app/#profile-page"},
+  "creator": {"@id": "https://leovicencio-smm-hq.vercel.app/#leonard-vicencio"}
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="dns-prefetch" href="https://fonts.googleapis.com">
@@ -2937,12 +2953,15 @@ footer {
         box-shadow: 0 34px 100px rgba(0, 0, 0, .4), 0 0 100px rgba(227, 6, 19, .09);
       }
 
-      .introduction-video-frame iframe {
+      .introduction-video-frame video {
         position: absolute;
         inset: 0;
         width: 100%;
         height: 100%;
         border: 0;
+        display: block;
+        object-fit: cover;
+        background: #000;
       }
 
       @media (max-width: 760px) {
@@ -2976,13 +2995,17 @@ footer {
         </div>
 
         <div class="introduction-video-frame">
-          <iframe
-            src="https://www.youtube-nocookie.com/embed/rtoGlFpqLc4?rel=0&amp;playsinline=1"
-            title="Introduction video by Leonard Vicencio"
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen></iframe>
+          <video
+            controls
+            playsinline
+            preload="metadata"
+            width="1280"
+            height="720"
+            poster="leonard-v-smm-intro-poster.jpg"
+            aria-label="Introduction video by Leonard Vicencio">
+            <source src="leonard-v-smm-intro.mp4" type="video/mp4">
+            Your browser does not support HTML5 video. <a href="leonard-v-smm-intro.mp4">Download the introduction video</a>.
+          </video>
         </div>
       </div>
     </section>
@@ -3993,11 +4016,13 @@ footer {
         <article class="pkg-card" data-system-reveal style="--reveal-delay:40ms">
           <div class="pkg-id">SYS_PKG_01 // SOCIAL</div>
           <h3 class="pkg-name">Social Media Management</h3>
-          <p class="pkg-tagline">Ideal for businesses needing consistent content creation, scheduling, community management, and monthly reporting.</p>
+          <p class="pkg-tagline">A complete organic social system for brands that need strategy, consistent content, stronger discovery, and active audience care.</p>
           <ul class="pkg-deliverables">
-            <li>Content creation &amp; scheduling</li>
-            <li>Community management</li>
-            <li>Monthly performance reporting</li>
+            <li>Goals, audience targeting, platform plans &amp; content pillars</li>
+            <li>Copy, hooks, storytelling, graphics, Reels &amp; content calendars</li>
+            <li>Social SEO: keywords, captions, profiles &amp; hashtag strategy</li>
+            <li>Comments, DMs, social listening &amp; reputation management</li>
+            <li>Reach, engagement, growth, retention, CTR &amp; lead reporting</li>
           </ul>
           <a class="pkg-cta" href="#intake">&gt;_ INITIALIZE</a>
         </article>
@@ -4006,14 +4031,14 @@ footer {
           <div class="pkg-featured-tag">Most Requested</div>
           <div class="pkg-id">SYS_PKG_02 // GROWTH</div>
           <h3 class="pkg-name">Growth Marketing</h3>
-          <p class="pkg-tagline">A complete growth system for brands ready to align strategy, content, creative execution, and measurement.</p>
+          <p class="pkg-tagline">Organic social, paid acquisition, lead generation, and conversion systems connected to measurable business growth.</p>
           <ul class="pkg-deliverables">
-            <li>Social Media Strategy</li>
-            <li>Content Creation</li>
-            <li>Graphic Design</li>
-            <li>Video Editing</li>
-            <li>Analytics &amp; Reporting</li>
-            <li>Monthly Consultation</li>
+            <li>Everything in Social Media Management</li>
+            <li>Market, audience, competitor, trend &amp; content-gap research</li>
+            <li>Brand positioning, voice, messaging &amp; creative direction</li>
+            <li>Lead magnets, landing pages, forms, DM funnels, CRM &amp; nurturing</li>
+            <li>Meta, TikTok &amp; LinkedIn Ads with retargeting and A/B testing</li>
+            <li>CTA, offer, funnel, follow-up, CPA/CPL, ROAS &amp; attribution</li>
           </ul>
           <a class="pkg-cta" href="#intake">&gt;_ INITIALIZE</a>
         </article>
@@ -4021,14 +4046,14 @@ footer {
         <article class="pkg-card" data-system-reveal style="--reveal-delay:160ms">
           <div class="pkg-id">SYS_PKG_03 // PARTNER</div>
           <h3 class="pkg-name">Marketing Partner</h3>
-          <p class="pkg-tagline">A broader digital marketing partnership for businesses that need connected growth infrastructure and priority support.</p>
+          <p class="pkg-tagline">An embedded creative and technical marketing partner for brands that need strategy, execution, infrastructure, and optimization in one system.</p>
           <ul class="pkg-deliverables">
             <li>Everything in Growth Marketing</li>
-            <li>Website Design</li>
-            <li>Marketing Automation</li>
-            <li>Lead Generation Support</li>
-            <li>Business Systems</li>
-            <li>Priority Support</li>
+            <li>Websites, landing pages, Meta Pixel, GA4, GSC &amp; UTM tracking</li>
+            <li>CRM, appointment booking, Zapier/Make/n8n &amp; lead automation</li>
+            <li>Scheduling systems, reporting dashboards &amp; data interpretation</li>
+            <li>AI research, prompting, copy, creative, media &amp; data analysis</li>
+            <li>Brand consistency, workflow design &amp; priority systems support</li>
           </ul>
           <a class="pkg-cta" href="#intake">&gt;_ INITIALIZE</a>
         </article>
