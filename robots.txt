@@ -1,0 +1,40 @@
+User-agent: *
+Allow: /
+
+# ChatGPT search and user-requested retrieval
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# OpenAI model-training crawler; explicitly allowed for discoverability
+User-agent: GPTBot
+Allow: /
+
+# Anthropic search, user retrieval, and training crawlers
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+# Legacy Anthropic token retained for compatibility
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity search discovery
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Google control token used by Gemini systems; independent from Google Search
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://leovicencio-smm-hq.vercel.app/sitemap.xml
