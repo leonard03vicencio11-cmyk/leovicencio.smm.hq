@@ -48,13 +48,27 @@
     submitButton.textContent = '>_ TRANSMITTING...';
 
     try {
+      var formData = new FormData(form);
+      var submissionData = Object.fromEntries(formData.entries());
       var response = await fetch(form.action, {
         method: 'POST',
-        body: new FormData(form),
+        body: formData,
         headers: { Accept: 'application/json' }
       });
 
       if (!response.ok) throw new Error('Form submission failed');
+
+      fetch('/api/ai-reply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(submissionData),
+        keepalive: true,
+        credentials: 'same-origin'
+      }).then(function (replyResponse) {
+        if (!replyResponse.ok) console.warn('Personalized reply was not sent:', replyResponse.status);
+      }).catch(function (error) {
+        console.warn('Personalized reply request failed:', error);
+      });
 
       form.reset();
       successPanel.hidden = false;
