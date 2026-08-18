@@ -13,7 +13,7 @@ No API key or email credential belongs in the repository or browser code. Do not
 
 ## Required Vercel environment variables
 
-Add these in the existing Vercel project under **Settings → Environment Variables**. Configure Production first; add separate Preview and Development values only when needed.
+Add these in the existing Vercel project under **Settings â†’ Environment Variables**. Configure Production first; add separate Preview and Development values only when needed.
 
 ```text
 OPENAI_API_KEY=your-private-openai-api-key
@@ -22,12 +22,14 @@ RESEND_API_KEY=your-private-resend-api-key
 EMAIL_FROM=Leonard Vicencio <verified-sender@example.com>
 REPLY_TO=leovicenciosmm.hq@gmail.com
 SITE_ORIGIN=https://leovicencio-smm-hq.vercel.app
+BOOKING_URL=https://your-booking-page.example
 ```
 
 Requirements:
 
 - `EMAIL_FROM` must use an address or domain verified in Resend.
 - `SITE_ORIGIN` must be the exact site origin, without a path or trailing route.
+- `BOOKING_URL` is optional. When omitted, the acknowledgement button opens a pre-addressed discovery-call request email to `REPLY_TO`.
 - Never paste private keys into GitHub, HTML, client-side JavaScript, support messages, or chat.
 
 ## Activate the integration
