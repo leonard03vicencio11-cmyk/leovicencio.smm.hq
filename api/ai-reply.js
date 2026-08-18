@@ -195,16 +195,23 @@ async function createPersonalizedReply(submission) {
   }
 }
 
-async function sendReplyEmail(submission, reply) {
-  if (!process.env.RESEND_API_KEY || !process.env.EMAIL_FROM) {
-    return { ok: false, status: 503, error: 'Email delivery is not configured.' };
-  }
+function buildEmailContent(submission, reply) {
+  const discoveryCallUrl = getDiscoveryCallUrl();
+  const plainText = `${reply.body}\n\nContinue: Request a Discovery Call\n${discoveryCallUrl}`;
+  const htmlBody = escapeHtml(reply.body).replaceAll('\n', '<br>');
+  const htmlDiscoveryCallUrl = escapeHtml(discoveryCallUrl);
 
+  return {
+    to: submission.email,
+    replyTo: process.env.REPLY_TO || 'leovicenciosmm.hq@gmail.com',
+    subject: reply.subject,
+    text: plainText,
+    html: `<div style="margin:0;background:#0a0a0a;padding:32px 16px;color:#f5f5f5;font-family:Arial,sans-serif"><div style="max-width:600px;margin:0 auto;border:1px solid rgba(255,255,255,.1);border-radius:20px;background:#111;padding:32px"><div style="margin-bottom:20px;color:#ef233c;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase">Submission confirmed</div><div style="font-size:16px;line-height:1.7;color:#e8e8e8">${htmlBody}</div><div style="margin-top:28px"><a href="${htmlDiscoveryCallUrl}" style="display:inline-block;border-radius:999px;background:#ef233c;color:#fff;padding:14px 22px;font-size:14px;font-weight:700;text-decoration:none">Continue &rarr; Request a Discovery Call</a></div><div style="margin-top:24px;color:#8d8d8d;font-size:12px;line-height:1.6">You received this acknowledgement because this email address was entered in the intake form at leovicencio-smm-hq.vercel.app. Reply directly to contact Leonard Vicencio.</div></div></div>`,
+  };
+}
+
+async function sendWithResend(email) {
   try {
-    const discoveryCallUrl = getDiscoveryCallUrl();
-    const plainText = `${reply.body}\n\nContinue: Request a Discovery Call\n${discoveryCallUrl}`;
-    const htmlBody = escapeHtml(reply.body).replaceAll('\n', '<br>');
-    const htmlDiscoveryCallUrl = escapeHtml(discoveryCallUrl);
     const emailResponse = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -213,11 +220,11 @@ async function sendReplyEmail(submission, reply) {
       },
       body: JSON.stringify({
         from: process.env.EMAIL_FROM,
-        to: [submission.email],
-        reply_to: process.env.REPLY_TO || 'leovicenciosmm.hq@gmail.com',
-        subject: reply.subject,
-        text: plainText,
-        html: `<div style="margin:0;background:#0a0a0a;padding:32px 16px;color:#f5f5f5;font-family:Arial,sans-serif"><div style="max-width:600px;margin:0 auto;border:1px solid rgba(255,255,255,.1);border-radius:20px;background:#111;padding:32px"><div style="margin-bottom:20px;color:#ef233c;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase">Submission confirmed</div><div style="font-size:16px;line-height:1.7;color:#e8e8e8">${htmlBody}</div><div style="margin-top:28px"><a href="${htmlDiscoveryCallUrl}" style="display:inline-block;border-radius:999px;background:#ef233c;color:#fff;padding:14px 22px;font-size:14px;font-weight:700;text-decoration:none">Continue &rarr; Request a Discovery Call</a></div><div style="margin-top:24px;color:#8d8d8d;font-size:12px;line-height:1.6">You received this acknowledgement because this email address was entered in the intake form at leovicencio-smm-hq.vercel.app. Reply directly to contact Leonard Vicencio.</div></div></div>`,
+        to: [email.to],
+        reply_to: email.replyTo,
+        subject: email.subject,
+        text: email.text,
+        html: email.html,
       }),
       signal: AbortSignal.timeout(10000),
     });
@@ -232,6 +239,65 @@ async function sendReplyEmail(submission, reply) {
     console.error('Resend request failed:', error instanceof Error ? error.message : 'Unknown error');
     return { ok: false, status: 502, error: 'Email delivery failed.' };
   }
+}
+
+function getGoogleScriptUrl() {
+  try {
+    const url = new URL(process.env.GOOGLE_SCRIPT_URL || '');
+    if (url.protocol !== 'https:' || url.hostname !== 'script.google.com' || !url.pathname.startsWith('/macros/s/')) return '';
+    return url.toString();
+  } catch {
+    return '';
+  }
+}
+
+async function sendWithGoogleScript(email) {
+  const scriptUrl = getGoogleScriptUrl();
+  const webhookToken = String(process.env.GOOGLE_SCRIPT_TOKEN || '').trim();
+  if (!scriptUrl || webhookToken.length < 24) {
+    return { ok: false, status: 503, error: 'Email delivery is not configured.' };
+  }
+
+  try {
+    const response = await fetch(scriptUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        token: webhookToken,
+        to: email.to,
+        replyTo: email.replyTo,
+        subject: email.subject,
+        text: email.text,
+        html: email.html,
+      }),
+      signal: AbortSignal.timeout(10000),
+    });
+
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || result.ok !== true) {
+      console.error('Google Apps Script email failed:', response.status);
+      return { ok: false, status: 502, error: 'Email delivery failed.' };
+    }
+
+    return { ok: true };
+  } catch (error) {
+    console.error('Google Apps Script email failed:', error instanceof Error ? error.message : 'Unknown error');
+    return { ok: false, status: 502, error: 'Email delivery failed.' };
+  }
+}
+
+async function sendReplyEmail(submission, reply) {
+  const email = buildEmailContent(submission, reply);
+
+  if (process.env.RESEND_API_KEY && process.env.EMAIL_FROM) {
+    return sendWithResend(email);
+  }
+
+  if (process.env.GOOGLE_SCRIPT_URL && process.env.GOOGLE_SCRIPT_TOKEN) {
+    return sendWithGoogleScript(email);
+  }
+
+  return { ok: false, status: 503, error: 'Email delivery is not configured.' };
 }
 
 async function handlePost(request) {
