@@ -37,9 +37,29 @@ function normalizeSubmission(body) {
 function fallbackReply(submission) {
   const firstName = submission.name.split(/\s+/)[0] || 'there';
   return {
-    subject: 'We received your project brief',
-    body: `Hi ${firstName},\n\nThanks for sending your project brief. I've received your details and will review your goals, timeline, and requirements. I'll get back to you shortly with the next steps.\n\nBest,\nLeonard Vicencio`,
+    subject: 'Your project brief is confirmed',
+    body: `Hi ${firstName},\n\nThank you for sharing your project brief. Your submission has been received successfully, and I'll review your goals, timeline, and requirements before following up with the most relevant next steps.\n\nIf you'd like to continue now, use the discovery-call link below to request a conversation.\n\nBest,\nLeonard Vicencio`,
   };
+}
+
+function getDiscoveryCallUrl() {
+  const configuredUrl = String(process.env.BOOKING_URL || '').trim();
+
+  if (configuredUrl) {
+    try {
+      const parsedUrl = new URL(configuredUrl);
+      if (parsedUrl.protocol === 'https:' || parsedUrl.protocol === 'http:') return parsedUrl.toString();
+    } catch {
+      // Fall back to a pre-addressed email request when no valid booking URL is configured.
+    }
+  }
+
+  const replyTo = String(process.env.REPLY_TO || 'leovicenciosmm.hq@gmail.com').trim();
+  const safeReplyTo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(replyTo)
+    ? replyTo
+    : 'leovicenciosmm.hq@gmail.com';
+
+  return `mailto:${safeReplyTo}?subject=${encodeURIComponent('Discovery Call Request')}`;
 }
 
 function getAllowedOrigin() {
@@ -111,6 +131,7 @@ async function createPersonalizedReply(submission) {
                   'Write a concise, warm, professional first-response email for Leonard Vicencio, a social media manager and digital marketer.',
                   'Use only the supplied submission facts. Do not invent prices, availability, results, guarantees, meeting times, or services.',
                   'Do not provide legal, medical, financial, or other regulated advice. Do not mention that AI was used.',
+                  'Do not add links or booking instructions; the system appends a verified discovery-call action.',
                   'Keep the subject under 80 characters and the body between 70 and 180 words.',
                 ].join(' '),
               },
@@ -180,6 +201,10 @@ async function sendReplyEmail(submission, reply) {
   }
 
   try {
+    const discoveryCallUrl = getDiscoveryCallUrl();
+    const plainText = `${reply.body}\n\nContinue: Request a Discovery Call\n${discoveryCallUrl}`;
+    const htmlBody = escapeHtml(reply.body).replaceAll('\n', '<br>');
+    const htmlDiscoveryCallUrl = escapeHtml(discoveryCallUrl);
     const emailResponse = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -191,8 +216,8 @@ async function sendReplyEmail(submission, reply) {
         to: [submission.email],
         reply_to: process.env.REPLY_TO || 'leovicenciosmm.hq@gmail.com',
         subject: reply.subject,
-        text: reply.body,
-        html: `<div style="font-family:Arial,sans-serif;line-height:1.6;white-space:pre-line">${escapeHtml(reply.body)}</div>`,
+        text: plainText,
+        html: `<div style="margin:0;background:#0a0a0a;padding:32px 16px;color:#f5f5f5;font-family:Arial,sans-serif"><div style="max-width:600px;margin:0 auto;border:1px solid rgba(255,255,255,.1);border-radius:20px;background:#111;padding:32px"><div style="margin-bottom:20px;color:#ef233c;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase">Submission confirmed</div><div style="font-size:16px;line-height:1.7;color:#e8e8e8">${htmlBody}</div><div style="margin-top:28px"><a href="${htmlDiscoveryCallUrl}" style="display:inline-block;border-radius:999px;background:#ef233c;color:#fff;padding:14px 22px;font-size:14px;font-weight:700;text-decoration:none">Continue &rarr; Request a Discovery Call</a></div><div style="margin-top:24px;color:#8d8d8d;font-size:12px;line-height:1.6">You received this acknowledgement because this email address was entered in the intake form at leovicencio-smm-hq.vercel.app. Reply directly to contact Leonard Vicencio.</div></div></div>`,
       }),
       signal: AbortSignal.timeout(10000),
     });
