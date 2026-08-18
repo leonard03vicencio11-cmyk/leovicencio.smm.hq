@@ -1,32 +1,55 @@
 # AI-Personalized Form Reply Setup
 
-This integration keeps the existing Formspree submission and owner notification unchanged. After Formspree succeeds, the browser sends a non-blocking copy of the submitted fields to `/api/ai-reply`. The Vercel Function drafts a concise response with OpenAI and delivers it through Resend. If OpenAI is unavailable, the function uses a fixed fallback confirmation. If the AI or email request fails, the visitor still sees the successful Formspree confirmation.
+This integration keeps the existing Formspree submission and owner notification unchanged. After Formspree succeeds, the browser sends a non-blocking copy of the submitted fields to `/api/ai-reply`. The Vercel Function can deliver through Resend or the free Google Apps Script Gmail webhook. OpenAI is optional: without it, the function uses a fixed confirmation personalized with the respondent's submitted name. If the acknowledgement request fails, the visitor still sees the successful Formspree confirmation.
+
+For the no-cost Gmail setup, follow [`GOOGLE_APPS_SCRIPT_EMAIL_SETUP.md`](GOOGLE_APPS_SCRIPT_EMAIL_SETUP.md). It does not require Resend or an OpenAI API key.
 
 ## Files
 
-- `api/ai-reply.js`: server-side OpenAI Responses API and Resend integration.
+- `api/ai-reply.js`: server-side acknowledgement generation plus Resend or Google Apps Script delivery.
+- `google-apps-script/Code.gs`: protected Gmail sender used by the no-cost option.
 - `portfolio-expansion.js`: preserves Formspree and adds the non-blocking same-origin request.
 - `index.html`: includes an invisible honeypot field named `website`.
 - `AI_REPLY_SETUP.md`: configuration, testing, fallback, and hardening guidance.
 
 No API key or email credential belongs in the repository or browser code. Do not commit a `.env` file.
 
-## Required Vercel environment variables
+## Vercel environment variables
 
 Add these in the existing Vercel project under **Settings â†’ Environment Variables**. Configure Production first; add separate Preview and Development values only when needed.
+
+Always required:
+
+```text
+REPLY_TO=leovicenciosmm.hq@gmail.com
+SITE_ORIGIN=https://leovicencio-smm-hq.vercel.app
+```
+
+Free Google Apps Script delivery:
+
+```text
+GOOGLE_SCRIPT_URL=https://script.google.com/macros/s/your-deployment-id/exec
+GOOGLE_SCRIPT_TOKEN=your-private-random-webhook-token
+```
+
+Resend delivery instead:
+
+```text
+RESEND_API_KEY=your-private-resend-api-key
+EMAIL_FROM=Leonard Vicencio <verified-sender@example.com>
+```
+
+Optional enhancements:
 
 ```text
 OPENAI_API_KEY=your-private-openai-api-key
 OPENAI_MODEL=gpt-5-mini
-RESEND_API_KEY=your-private-resend-api-key
-EMAIL_FROM=Leonard Vicencio <verified-sender@example.com>
-REPLY_TO=leovicenciosmm.hq@gmail.com
-SITE_ORIGIN=https://leovicencio-smm-hq.vercel.app
 BOOKING_URL=https://your-booking-page.example
 ```
 
 Requirements:
 
+- Configure one email provider: Google Apps Script or Resend. When both are configured, Resend is used first.
 - `EMAIL_FROM` must use an address or domain verified in Resend.
 - `SITE_ORIGIN` must be the exact site origin, without a path or trailing route.
 - `BOOKING_URL` is optional. When omitted, the acknowledgement button opens a pre-addressed discovery-call request email to `REPLY_TO`.
@@ -34,22 +57,22 @@ Requirements:
 
 ## Activate the integration
 
-1. Add all six environment variables to the existing Vercel project.
+1. Add the always-required variables and one configured email provider to the existing Vercel project.
 2. Redeploy the current production deployment so the Function receives the variables.
 3. Submit one intake using an email address you own.
 4. Confirm the original Formspree owner notification arrives.
-5. Confirm the personalized reply arrives from the verified Resend sender.
+5. Confirm the personalized reply arrives from the configured sender.
 6. Review the message content and Vercel Function logs before wider promotion.
 
-Until the required variables are configured, Formspree continues to work but `/api/ai-reply` returns `503` and sends no respondent email.
+Until an email provider is configured, Formspree continues to work but `/api/ai-reply` returns `503` and sends no respondent email.
 
 ## Data and fallback behavior
 
 - OpenAI receives only `name`, `project_type`, `budget_range`, and `brief`.
-- Resend receives the respondent email and generated or fallback message.
+- The selected email provider receives the respondent email and generated or fallback message.
 - The OpenAI request sets `store: false`.
 - The prompt forbids invented pricing, availability, guarantees, services, meeting times, and regulated advice.
-- OpenAI failure uses a fixed confirmation; Resend failure does not change the Formspree success state.
+- OpenAI failure uses a fixed confirmation; email-provider failure does not change the Formspree success state.
 
 ## Security and production hardening
 
