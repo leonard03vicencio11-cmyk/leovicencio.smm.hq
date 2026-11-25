@@ -1,9 +1,9 @@
-/* Portfolio showcases (Social Media Work, Website Creation, CRM & Automation) — injected before the Certificates block on the homepage */
+/* Portfolio showcases (Social Media Work, Website Creation, CRM & Automation) — injected after Results That Speak on /works */
 (function () {
   var sections = [
     {
       id: 'social-media-work',
-      eyebrow: '&gt; FILE_09 // SOCIAL MEDIA WORK',
+      eyebrow: '&gt; FILE_13 // SOCIAL MEDIA WORK',
       titleA: 'Social Media',
       titleB: 'Work',
       sub: 'Brand pages and accounts I’ve managed. Click any project to open the live page.',
@@ -23,7 +23,7 @@
           name: 'Golden Rentals of Dillsburg',
           type: 'Facebook page \u00b7 equipment & party rentals, Pennsylvania',
           stat: '1.5K followers (Nov 2026)',
-          url: '#works',
+          url: '/#works',
           internal: true,
           cta: '&gt;_ VIEW CASE STUDY \u2193',
           label: 'facebook.com \u00b7 Golden Rentals of Dillsburg',
@@ -34,7 +34,7 @@
           name: 'All Reasons Moving & Storage',
           type: 'Facebook page \u00b7 moving & storage, San Jose CA',
           stat: '1K followers (Nov 2026)',
-          url: '#works',
+          url: '/#works',
           internal: true,
           cta: '&gt;_ VIEW CASE STUDY \u2193',
           label: 'facebook.com \u00b7 All Reasons Moving & Storage',
@@ -45,7 +45,7 @@
           name: 'Peace of Mind Pest Control',
           type: 'Facebook page \u00b7 pest control, Modesto CA',
           stat: '968 followers (Nov 2026)',
-          url: '#works',
+          url: '/#works',
           internal: true,
           cta: '&gt;_ VIEW CASE STUDY \u2193',
           label: 'facebook.com \u00b7 Peace of Mind Pest Control',
@@ -55,7 +55,7 @@
     },
     {
       id: 'website-creation',
-      eyebrow: '&gt; FILE_10 // WEBSITE CREATION',
+      eyebrow: '&gt; FILE_14 // WEBSITE CREATION',
       titleA: 'Website',
       titleB: 'Creation',
       sub: 'Live websites and funnels I’ve built and supported. Click any project to open the live site.',
@@ -92,8 +92,39 @@
       ]
     },
     {
+      id: 'ai-commercials-reels',
+      vertical: true,
+      eyebrow: '&gt; FILE_15 // AI COMMERCIALS & REELS',
+      titleA: 'AI Commercials &amp;',
+      titleB: 'Reels',
+      sub: 'Short-form commercials and Reels I\u2019ve produced, including AI-generated video. Press play to watch.',
+      items: [
+        {
+          code: 'VID_01',
+          name: 'TradeAnchor AI Drama \u2014 Episode 07',
+          type: 'AI-generated short drama series \u00b7 Reel',
+          video: '/showcase/TRADEANCHOR-AI-DRAMA-EPISODE-07-THE-T.mp4',
+          label: 'Trade Anchor AI \u00b7 Reels'
+        },
+        {
+          code: 'VID_02',
+          name: 'Trade Anchor \u2014 September Reel',
+          type: 'Brand Reel \u00b7 Trade Anchor AI',
+          video: '/showcase/trade-anchor-sept-reel.mp4',
+          label: 'Trade Anchor AI \u00b7 Reels'
+        },
+        {
+          code: 'VID_03',
+          name: '30-Second AI Commercial',
+          type: 'AI-powered commercial \u00b7 30s',
+          video: '/showcase/ai-commercial-30s.mp4',
+          label: 'AI commercial \u00b7 30s'
+        }
+      ]
+    },
+    {
       id: 'automation-systems',
-      eyebrow: '&gt; FILE_11 // CRM, AUTOMATION & BUSINESS SYSTEMS',
+      eyebrow: '&gt; FILE_16 // CRM, AUTOMATION & BUSINESS SYSTEMS',
       titleA: 'CRM &amp;',
       titleB: 'Automation',
       sub: 'Workflows I\u2019ve designed and built in n8n and GoHighLevel. Click any project to view it full size.',
@@ -150,7 +181,16 @@
     return 'https://s0.wp.com/mshots/v1/' + encodeURIComponent(p.url) + '?w=1280&h=800';
   }
 
+  function videoCard(p) {
+    return '<div class="lvws-card">' +
+      '<div class="lvws-browser" aria-hidden="true"><span class="lvws-dot"></span><span class="lvws-dot"></span><span class="lvws-dot"></span><span class="lvws-url">' + esc(p.label) + '</span></div>' +
+      '<div class="lvws-shot"><video src="' + esc(p.video) + '#t=0.1" controls playsinline preload="metadata" aria-label="' + esc(p.name) + '"></video></div>' +
+      '<div class="lvws-meta"><span class="lvws-code">' + esc(p.code) + '</span><h3 class="lvws-name">' + esc(p.name) + '</h3><p class="lvws-type">' + esc(p.type) + '</p></div>' +
+      '</div>';
+  }
+
   function card(p, cta) {
+    if (p.video) return videoCard(p);
     var attrs = p.internal ? '' : ' target="_blank" rel="noopener noreferrer"';
     return '<a class="lvws-card" href="' + esc(p.url) + '"' + attrs + ' aria-label="' + esc(p.name + (p.internal ? ' — view case study' : ' — opens in a new tab')) + '">' +
       '<div class="lvws-browser" aria-hidden="true"><span class="lvws-dot"></span><span class="lvws-dot"></span><span class="lvws-dot"></span><span class="lvws-url">' + esc(p.label) + '</span></div>' +
@@ -166,7 +206,7 @@
     var multi = cfg.items.length > 1;
 
     var section = document.createElement('div');
-    section.className = 'lvws';
+    section.className = cfg.vertical ? 'lvws lvws--vertical' : 'lvws';
     section.id = cfg.id;
     section.setAttribute('aria-labelledby', cfg.id + '-title');
     section.innerHTML =
@@ -187,6 +227,17 @@
 
     anchor.parentNode.insertBefore(section, anchor);
 
+    section.querySelectorAll('.lvws-shot video').forEach(function (v) {
+      v.addEventListener('error', function () {
+        var c = v.closest('.lvws-card');
+        if (c) c.remove();
+        if (!section.querySelector('.lvws-card')) section.remove();
+      });
+      v.addEventListener('play', function () {
+        document.querySelectorAll('.lvws-shot video').forEach(function (o) { if (o !== v) o.pause(); });
+      });
+    });
+
     section.querySelectorAll('.lvws-shot img').forEach(function (img) {
       img.addEventListener('error', function () {
         img.style.display = 'none';
@@ -200,10 +251,11 @@
     var prev = section.querySelector('[data-dir="-1"]');
     var next = section.querySelector('[data-dir="1"]');
     var count = section.querySelector('.lvws-count');
-    var cards = track.querySelectorAll('.lvws-card');
+
+    function cardsNow() { return track.querySelectorAll('.lvws-card'); }
 
     function step() {
-      var c = cards[0];
+      var c = cardsNow()[0];
       return c ? c.getBoundingClientRect().width + 16 : track.clientWidth;
     }
 
@@ -211,8 +263,9 @@
       var max = track.scrollWidth - track.clientWidth - 2;
       prev.disabled = track.scrollLeft <= 2;
       next.disabled = track.scrollLeft >= max;
-      var i = max <= 0 ? 1 : track.scrollLeft >= max ? cards.length : Math.min(cards.length, Math.round(track.scrollLeft / step()) + 1);
-      count.textContent = String(i).padStart(2, '0') + ' / ' + String(cards.length).padStart(2, '0');
+      var n = cardsNow().length;
+      var i = max <= 0 ? 1 : track.scrollLeft >= max ? n : Math.min(n, Math.round(track.scrollLeft / step()) + 1);
+      count.textContent = String(i).padStart(2, '0') + ' / ' + String(n).padStart(2, '0');
     }
 
     [prev, next].forEach(function (btn) {
@@ -234,9 +287,14 @@
   }
 
   function build() {
-    var anchor = document.getElementById('certificates');
-    if (!anchor) return;
-    sections.forEach(function (cfg) { buildSection(cfg, anchor); });
+    var results = Array.prototype.find.call(document.querySelectorAll('h2'), function (h) {
+      return /Results That Speak/i.test(h.textContent);
+    });
+    if (!results) return;
+    var block = results.parentElement;
+    var marker = document.createComment('lv-showcases');
+    block.parentNode.insertBefore(marker, block.nextSibling);
+    sections.forEach(function (cfg) { buildSection(cfg, marker); });
   }
 
   function addCss() {
