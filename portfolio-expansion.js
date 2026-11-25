@@ -81,3 +81,11 @@
     }
   });
 })();
+
+/* Website Creation showcase loader */
+(function () {
+  var s = document.createElement('script');
+  s.src = '/website-showcase.js';
+  s.defer = true;
+  document.head.appendChild(s);
+})();
