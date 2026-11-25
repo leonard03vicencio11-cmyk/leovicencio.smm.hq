@@ -102,7 +102,7 @@
       var max = track.scrollWidth - track.clientWidth - 2;
       prev.disabled = track.scrollLeft <= 2;
       next.disabled = track.scrollLeft >= max;
-      var i = track.scrollLeft >= max ? cards.length : Math.min(cards.length, Math.round(track.scrollLeft / step()) + 1);
+      var i = max <= 0 ? 1 : track.scrollLeft >= max ? cards.length : Math.min(cards.length, Math.round(track.scrollLeft / step()) + 1);
       count.textContent = String(i).padStart(2, '0') + ' / ' + String(cards.length).padStart(2, '0');
     }
 
@@ -117,6 +117,10 @@
     });
     track.addEventListener('scroll', function () { window.requestAnimationFrame(update); }, { passive: true });
     window.addEventListener('resize', update);
+    window.addEventListener('load', update);
+    var css = document.querySelector('link[href="/website-showcase.css"]');
+    if (css) css.addEventListener('load', update);
+    setTimeout(update, 800);
     update();
   }
 
