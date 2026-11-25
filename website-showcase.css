@@ -144,3 +144,15 @@
   .lvws-card:hover { transform: none; }
   .lvws-card:hover .lvws-shot img { transform: none; }
 }
+
+/* Vertical video sliders (reels, commercials) */
+.lvws--vertical .lvws-card { flex-basis: min(300px, 72%); }
+.lvws--vertical .lvws-card:hover { transform: none; }
+.lvws--vertical .lvws-shot { aspect-ratio: 9 / 16; }
+.lvws-shot video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #000;
+}
