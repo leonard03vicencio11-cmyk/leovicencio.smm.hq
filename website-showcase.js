@@ -1,41 +1,62 @@
-/* Website Creation showcase — injected before the Certificates block on the homepage */
+/* Portfolio showcases (Social Media Work + Website Creation) — injected before the Certificates block on the homepage */
 (function () {
-  var projects = [
+  var sections = [
     {
-      code: 'WEB_01',
-      name: 'Trade Anchor AI',
-      type: 'SaaS website · AI platform for the trades',
-      url: 'https://tradeanchor.ai/',
-      label: 'tradeanchor.ai'
+      id: 'social-media-work',
+      eyebrow: '&gt; FILE_09 // SOCIAL MEDIA WORK',
+      titleA: 'Social Media',
+      titleB: 'Work',
+      sub: 'Brand pages and accounts I’ve managed. Click any project to open the live page.',
+      cta: '&gt;_ VIEW PAGE ↗',
+      items: [
+        {
+          code: 'SOC_01',
+          name: 'Trade Anchor AI',
+          type: 'Facebook page · short-form Reels & community',
+          stat: '2.2K followers · top Reel 1.5M views (Nov 2026)',
+          url: 'https://www.facebook.com/profile.php?id=61593412442171',
+          label: 'facebook.com · Trade Anchor AI',
+          image: '/showcase/1795631923256_image.png'
+        }
+      ]
     },
     {
-      code: 'WEB_02',
-      name: 'Albin Law Group',
-      type: 'Law firm website',
-      url: 'https://www.albinlawgroup.com/',
-      label: 'albinlawgroup.com'
-    },
-    {
-      code: 'WEB_03',
-      name: 'VH Law',
-      type: 'Law firm website',
-      url: 'https://www.vhlawinc.com/',
-      label: 'vhlawinc.com'
-    },
-    {
-      code: 'WEB_04',
-      name: "EnRICHed Women's Social Club",
-      type: 'Community website & membership funnel',
-      url: 'https://enrichedwomenssocialclub.netlify.app/',
-      label: 'enrichedwomenssocialclub.netlify.app'
-    },
-    {
-      code: 'SOC_01',
-      name: 'Trade Anchor AI — Facebook',
-      type: 'Facebook page · short-form Reels & community',
-      url: 'https://www.facebook.com/profile.php?id=61593412442171',
-      label: 'facebook.com · Trade Anchor AI',
-      image: '/showcase/1795631923256_image.png'
+      id: 'website-creation',
+      eyebrow: '&gt; FILE_10 // WEBSITE CREATION',
+      titleA: 'Website',
+      titleB: 'Creation',
+      sub: 'Live websites and funnels I’ve built and supported. Click any project to open the live site.',
+      cta: '&gt;_ VISIT LIVE SITE ↗',
+      items: [
+        {
+          code: 'WEB_01',
+          name: 'Trade Anchor AI',
+          type: 'SaaS website · AI platform for the trades',
+          url: 'https://tradeanchor.ai/',
+          label: 'tradeanchor.ai'
+        },
+        {
+          code: 'WEB_02',
+          name: 'Albin Law Group',
+          type: 'Law firm website',
+          url: 'https://www.albinlawgroup.com/',
+          label: 'albinlawgroup.com'
+        },
+        {
+          code: 'WEB_03',
+          name: 'VH Law',
+          type: 'Law firm website',
+          url: 'https://www.vhlawinc.com/',
+          label: 'vhlawinc.com'
+        },
+        {
+          code: 'WEB_04',
+          name: "EnRICHed Women's Social Club",
+          type: 'Community website & membership funnel',
+          url: 'https://enrichedwomenssocialclub.netlify.app/',
+          label: 'enrichedwomenssocialclub.netlify.app'
+        }
+      ]
     }
   ];
 
@@ -50,41 +71,41 @@
     return 'https://s0.wp.com/mshots/v1/' + encodeURIComponent(p.url) + '?w=1280&h=800';
   }
 
-  function card(p) {
-    return '<a class="lvws-card" href="' + esc(p.url) + '" target="_blank" rel="noopener noreferrer" aria-label="' + esc(p.name + ' — open live site in a new tab') + '">' +
+  function card(p, cta) {
+    return '<a class="lvws-card" href="' + esc(p.url) + '" target="_blank" rel="noopener noreferrer" aria-label="' + esc(p.name + ' — opens in a new tab') + '">' +
       '<div class="lvws-browser" aria-hidden="true"><span class="lvws-dot"></span><span class="lvws-dot"></span><span class="lvws-dot"></span><span class="lvws-url">' + esc(p.label) + '</span></div>' +
       '<div class="lvws-shot"><img src="' + esc(shot(p)) + '" alt="' + esc('Screenshot of ' + p.name) + '" loading="lazy" decoding="async" width="1280" height="800"><span class="lvws-fallback">' + esc(p.name) + '</span></div>' +
-      '<div class="lvws-meta"><span class="lvws-code">' + esc(p.code) + '</span><h3 class="lvws-name">' + esc(p.name) + '</h3><p class="lvws-type">' + esc(p.type) + '</p><span class="lvws-cta">&gt;_ VISIT LIVE SITE ↗</span></div>' +
+      '<div class="lvws-meta"><span class="lvws-code">' + esc(p.code) + '</span><h3 class="lvws-name">' + esc(p.name) + '</h3><p class="lvws-type">' + esc(p.type) + '</p>' +
+      (p.stat ? '<p class="lvws-type">' + esc(p.stat) + '</p>' : '') +
+      '<span class="lvws-cta">' + cta + '</span></div>' +
       '</a>';
   }
 
-  function build() {
-    var anchor = document.getElementById('certificates');
-    if (!anchor || document.getElementById('website-creation')) return;
+  function buildSection(cfg, anchor) {
+    if (document.getElementById(cfg.id)) return;
+    var multi = cfg.items.length > 1;
 
     var section = document.createElement('div');
     section.className = 'lvws';
-    section.id = 'website-creation';
-    section.setAttribute('aria-labelledby', 'website-creation-title');
+    section.id = cfg.id;
+    section.setAttribute('aria-labelledby', cfg.id + '-title');
     section.innerHTML =
-      '<div class="lvws-eyebrow">&gt; FILE_09 // WEBSITE CREATION</div>' +
+      '<div class="lvws-eyebrow">' + cfg.eyebrow + '</div>' +
       '<div class="lvws-head"><div>' +
-        '<h2 class="lvws-title" id="website-creation-title">Website <span>Creation</span></h2>' +
-        '<p class="lvws-sub">Live websites, funnels and brand pages I’ve built and supported. Click any project to open the live site.</p>' +
-      '</div><div class="lvws-nav">' +
+        '<h2 class="lvws-title" id="' + cfg.id + '-title">' + cfg.titleA + ' <span>' + cfg.titleB + '</span></h2>' +
+        '<p class="lvws-sub">' + cfg.sub + '</p>' +
+      '</div>' +
+      (multi ? '<div class="lvws-nav">' +
         '<button type="button" class="lvws-btn" data-dir="-1" aria-label="Previous project">←</button>' +
         '<button type="button" class="lvws-btn" data-dir="1" aria-label="Next project">→</button>' +
-      '</div></div>' +
-      '<div class="lvws-track" tabindex="0" role="region" aria-label="Website projects, scroll horizontally">' + projects.map(card).join('') + '</div>' +
-      '<div class="lvws-count" aria-live="polite"></div>';
+      '</div>' : '') +
+      '</div>' +
+      '<div class="lvws-track" tabindex="0" role="region" aria-label="' + esc(cfg.titleA + ' ' + cfg.titleB) + ' projects">' +
+        cfg.items.map(function (p) { return card(p, cfg.cta); }).join('') +
+      '</div>' +
+      (multi ? '<div class="lvws-count" aria-live="polite"></div>' : '');
 
     anchor.parentNode.insertBefore(section, anchor);
-
-    var track = section.querySelector('.lvws-track');
-    var prev = section.querySelector('[data-dir="-1"]');
-    var next = section.querySelector('[data-dir="1"]');
-    var count = section.querySelector('.lvws-count');
-    var cards = track.querySelectorAll('.lvws-card');
 
     section.querySelectorAll('.lvws-shot img').forEach(function (img) {
       img.addEventListener('error', function () {
@@ -92,6 +113,14 @@
         img.parentNode.classList.add('is-broken');
       });
     });
+
+    if (!multi) return;
+
+    var track = section.querySelector('.lvws-track');
+    var prev = section.querySelector('[data-dir="-1"]');
+    var next = section.querySelector('[data-dir="1"]');
+    var count = section.querySelector('.lvws-count');
+    var cards = track.querySelectorAll('.lvws-card');
 
     function step() {
       var c = cards[0];
@@ -122,6 +151,12 @@
     if (css) css.addEventListener('load', update);
     setTimeout(update, 800);
     update();
+  }
+
+  function build() {
+    var anchor = document.getElementById('certificates');
+    if (!anchor) return;
+    sections.forEach(function (cfg) { buildSection(cfg, anchor); });
   }
 
   function addCss() {
