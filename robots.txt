@@ -37,4 +37,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://leovicencio-smm-hq.vercel.app/sitemap.xml
+Sitemap: https://leovicenciosmm.com/sitemap.xml
