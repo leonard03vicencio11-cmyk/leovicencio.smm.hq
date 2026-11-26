@@ -1,4 +1,17 @@
 {
-    "cleanUrls": true,
-        "trailingSlash": false
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "leovicencio-smm-hq.vercel.app"
+        }
+      ],
+      "destination": "https://leovicenciosmm.com/:path*",
+      "permanent": true
+    }
+  ]
 }
