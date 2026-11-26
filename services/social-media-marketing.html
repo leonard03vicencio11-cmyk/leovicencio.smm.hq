@@ -125,6 +125,7 @@
     .intro { max-width: 760px; color: var(--text2); font-size: 15px; }
 
     .grid { display: grid; gap: 16px; margin-top: 32px; }
+    .grid > *, .steps > * { min-width: 0; }
     .grid--3 { grid-template-columns: repeat(3, 1fr); }
     .grid--2 { grid-template-columns: repeat(2, 1fr); }
     .card { background: var(--surface); border: 1px solid var(--border); padding: 24px; position: relative; }
@@ -144,9 +145,9 @@
     .flow strong { color: var(--text); font-weight: 500; }
 
     .work { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 32px; }
-    .work a { display: block; background: var(--surface); border: 1px solid var(--border); text-decoration: none; transition: border-color .2s; }
+    .work a { display: block; min-width: 0; overflow: hidden; background: var(--surface); border: 1px solid var(--border); text-decoration: none; transition: border-color .2s; }
     .work a:hover { border-color: var(--red); }
-    .work img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; display: block; border-bottom: 1px solid var(--border); background: var(--bg); }
+    .work img { width: 100%; max-width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; display: block; border-bottom: 1px solid var(--border); background: var(--bg); }
     .work .meta { padding: 16px 18px 18px; }
     .work .meta p { color: var(--text2); font-size: 13px; margin: 4px 0 0; }
 
