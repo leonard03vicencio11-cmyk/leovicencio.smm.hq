@@ -314,3 +314,101 @@
     build();
   }
 })();
+
+/* Works page: service tabs that organize all work by discipline */
+(function () {
+  var divisions = [
+    { key: 'all', num: '00', label: 'All Work', tag: 'Everything',
+      title: 'All <span>work</span>', desc: 'Every project in one place: social media, websites, AI creative, and CRM & automation. Pick a service above to focus on one discipline.' },
+    { key: 'social', num: '01', label: 'Social Media Marketing', tag: 'Visibility & Engagement',
+      title: 'Social media that <span>does a job for the business.</span>', desc: 'Strategy, content, Reels, community management, social SEO, and reporting for US and international businesses.',
+      url: '/services/social-media-marketing' },
+    { key: 'web', num: '02', label: 'Websites & Funnels', tag: 'Conversion',
+      title: 'Websites built to <span>turn visits into enquiries.</span>', desc: 'Business websites, landing pages, and membership and lead-generation funnels.',
+      url: '/services/websites-funnels' },
+    { key: 'ai', num: '03', label: 'AI Creative & Video', tag: 'Creative Production',
+      title: 'Short-form video and <span>AI-powered commercials.</span>', desc: 'Reels, ad creative, and AI-generated video that stop the scroll and carry the message.',
+      url: '/services/ai-creative-video' },
+    { key: 'crm', num: '04', label: 'CRM & Automation', tag: 'Systems',
+      title: 'The systems <span>behind your growth.</span>', desc: 'GoHighLevel pipelines and booking workflows, n8n lead enrichment, AI agents, and business automation.',
+      url: '/services/crm-automation' }
+  ];
+
+  var rules = [
+    { key: 'social', match: /FEATURED CASE STUDIES|DIGITAL LAYOUT|SAMPLE CAPTIONS|ANALYTICS/i },
+    { key: 'ai', match: /SHORT FORM VIDEOS/i }
+  ];
+  var byId = { 'social-media-work': 'social', 'website-creation': 'web', 'ai-commercials-reels': 'ai', 'automation-systems': 'crm' };
+
+  function init() {
+    var first = document.querySelector('h1#works');
+    if (!first || document.getElementById('lv-tabs')) return;
+    var container = first.parentElement.parentElement;
+    var blocks = Array.prototype.filter.call(container.children, function (el) {
+      return el.tagName === 'DIV' && el.id !== 'lv-tabs';
+    });
+    blocks.forEach(function (el) {
+      var key = byId[el.id];
+      if (!key) {
+        var txt = el.textContent.slice(0, 200);
+        rules.forEach(function (r) { if (!key && r.match.test(txt)) key = r.key; });
+      }
+      if (key) el.setAttribute('data-lv-division', key);
+    });
+
+    var wrap = document.createElement('div');
+    wrap.id = 'lv-tabs';
+    wrap.className = 'lvtabs';
+    wrap.innerHTML =
+      '<div class="lvtabs-top"><span class="lvtabs-eyebrow">&gt; SERVICE DIRECTORY // CHOOSE A DISCIPLINE</span></div>' +
+      '<div class="lvtabs-row" role="tablist" aria-label="Filter work by service">' +
+      divisions.map(function (d) {
+        return '<button type="button" class="lvtabs-tab" role="tab" data-key="' + d.key + '" aria-selected="false">' +
+          '<span class="lvtabs-num">' + d.num + '</span><span class="lvtabs-chip">' + d.tag + '</span>' +
+          '<span class="lvtabs-label">' + d.label + '</span></button>';
+      }).join('') +
+      '</div>' +
+      '<div class="lvtabs-panel" role="tabpanel" aria-live="polite"></div>';
+    container.insertBefore(wrap, container.firstChild);
+
+    var panel = wrap.querySelector('.lvtabs-panel');
+    var tabs = wrap.querySelectorAll('.lvtabs-tab');
+
+    function select(key, scroll) {
+      var d = divisions.filter(function (x) { return x.key === key; })[0] || divisions[0];
+      tabs.forEach(function (t) {
+        var on = t.getAttribute('data-key') === d.key;
+        t.classList.toggle('is-active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      panel.innerHTML =
+        '<span class="lvtabs-pill">' + (d.key === 'all' ? 'ALL DISCIPLINES' : 'DIVISION ' + d.num + ' &mdash; ' + d.label.toUpperCase()) + '</span>' +
+        '<h2 class="lvtabs-title">' + d.title + '</h2>' +
+        '<p class="lvtabs-desc">' + d.desc + '</p>' +
+        '<div class="lvtabs-actions">' +
+          (d.url ? '<a class="lvtabs-btn" href="' + d.url + '">&gt;_ VIEW SERVICE PAGE</a>' : '') +
+          '<a class="lvtabs-btn lvtabs-btn--ghost" href="/#intake">INQUIRE' + (d.key === 'all' ? '' : ' ABOUT ' + d.label.toUpperCase()) + ' &rarr;</a>' +
+        '</div>';
+      blocks.forEach(function (el) {
+        var k = el.getAttribute('data-lv-division');
+        el.style.display = (d.key === 'all' || k === d.key) ? '' : 'none';
+      });
+      try { history.replaceState(null, '', d.key === 'all' ? location.pathname : '#' + d.key); } catch (e) {}
+      window.dispatchEvent(new Event('resize'));
+      if (scroll) wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () { select(t.getAttribute('data-key'), false); });
+    });
+    var start = (location.hash || '').replace('#', '');
+    var valid = divisions.some(function (d) { return d.key === start; });
+    select(valid ? start : 'all', valid);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { setTimeout(init, 0); });
+  } else {
+    setTimeout(init, 0);
+  }
+})();
