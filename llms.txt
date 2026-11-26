@@ -1,17 +1,54 @@
-# Leonard Vicencio — Social Media Marketing & Management
+# Leonard Vicencio — Digital Marketer, Social Media Manager & CRM Automation Specialist
 
-Leonard Vicencio, also known as Leo Vicencio, is a Philippines-based Social Media Manager and Digital Marketer. He helps local and international brands with social media strategy, content creation, campaign management, community management, analytics, reporting, workflow automation, and practical marketing systems.
+> Leonard Vicencio (also known as Leo Vicencio) is a Philippines-based digital marketing strategist, social media manager, and CRM & automation specialist. He works remotely with US and international businesses on social media, paid ads, AI-powered creative, websites and funnels, and CRM and automation systems built in GoHighLevel and n8n. Website: https://leovicenciosmm.com
+
+## About
+
+Social media management is one of Leonard's core disciplines, but his work extends to the systems behind growth: paid advertising, AI-powered creative and commercials, websites and conversion funnels, and CRM and marketing automation in tools like GoHighLevel, n8n, Zapier, and Make. His work starts with the business — what's broken, what's missing, and what needs to be built. His positioning: "I don't just manage your digital presence. I build the systems behind your growth."
+
+## Services
+
+- Social media management and content strategy (Facebook, Instagram, TikTok, LinkedIn, Threads)
+- Digital marketing strategy, audits, and reporting
+- Paid advertising and lead generation (Meta Ads, retargeting, lead capture)
+- AI-powered creative production: AI commercials, short-form video and Reels, graphic design
+- Website, landing page, and sales funnel development
+- CRM implementation and marketing automation: GoHighLevel, n8n, Zapier, Make, HubSpot
+- Business process automation and workflow design
+
+## Selected work
+
+### Social media management
+- Trade Anchor AI — Facebook page and short-form Reels (2.2K followers; top Reel 1.5M views, as of Nov 2026): https://www.facebook.com/profile.php?id=61593412442171
+- Golden Rentals of Dillsburg — equipment and party rentals, Pennsylvania (social media case study)
+- All Reasons Moving & Storage — moving and storage, San Jose, California (social media case study)
+- Peace of Mind Pest Control — pest control, Modesto, California (social media case study)
+
+### Website creation
+- Trade Anchor AI (SaaS website, AI platform for the trades): https://tradeanchor.ai/
+- Albin Law Group (law firm website): https://www.albinlawgroup.com/
+- VH Law (law firm website): https://www.vhlawinc.com/
+- EnRICHed Women's Social Club (community website and membership funnel): https://enrichedwomenssocialclub.netlify.app/
+
+### CRM & automation
+- Lead enrichment pipeline (n8n): scrapes leads from Apollo.io, extracts LinkedIn profiles, validates emails with Mail.so, adds AI summaries, and pushes clean data to a master database
+- AI assistant workflows (n8n): personal assistant, research, Zoom meeting, calendar, and email agents
+- Employee onboarding and offboarding (n8n): form-triggered Google Workspace account creation, Slack provisioning, temporary password delivery, roster logging, and a full offboarding path that removes access
+- Booked appointment workflow (GoHighLevel): tags the contact, removes it from lead nurture, runs a qualification survey, scores the lead, and branches into tailored email and SMS sequences with pre-appointment reminders
+
+### AI commercials & Reels
+- TradeAnchor AI Drama — AI-generated short drama series for Reels
 
 ## Primary pages
 
-- Portfolio home and services: https://leovicencio-smm-hq.vercel.app/
-- Social media case studies: https://leovicencio-smm-hq.vercel.app/works
-- Frequently asked questions: https://leovicencio-smm-hq.vercel.app/#faq
-- Project intake: https://leovicencio-smm-hq.vercel.app/#intake
+- Home and services: https://leovicenciosmm.com/
+- Portfolio, case studies, websites, CRM & automation work: https://leovicenciosmm.com/works
+- Frequently asked questions: https://leovicenciosmm.com/#faq
+- Project intake: https://leovicenciosmm.com/#intake
 
 ## Core methodology
 
-Leonard's Social Photosynthesis Framework explains growth as a connected system: Seed, AA Battery, Roots, Flower, Leads, and Sales. The flower is the engagement stage and the signature visual of the framework.
+Leonard's Social Photosynthesis Framework explains growth as a connected system: Seed, AA Battery, Roots, Flower, Leads, and Sales — Visibility → Engagement → Leads → Sales, with CRM, automation, and reporting as the infrastructure underneath. The flower is the engagement stage and the signature visual of the framework.
 
 ## Contact
 
