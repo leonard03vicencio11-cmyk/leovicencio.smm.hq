@@ -291,6 +291,8 @@
       return /Results That Speak/i.test(h.textContent);
     });
     if (!results) return;
+    var staticList = document.getElementById('lv-showcase-static');
+    if (staticList) staticList.remove();
     var block = results.parentElement;
     var marker = document.createComment('lv-showcases');
     block.parentNode.insertBefore(marker, block.nextSibling);
